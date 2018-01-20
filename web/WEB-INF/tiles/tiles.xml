@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC  "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"  "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">  
+
+<tiles-definitions>  
+ 
+    <!-- Base Definition -->
+    <definition name="base-definition" 
+                template="/WEB-INF/tiles/layouts/defaultLayout.jsp">  
+        <put-attribute name="title" value="" />  
+        <put-attribute name="body" value="" />  
+        <put-attribute name="footer" value="/WEB-INF/tiles/template/defaultFooter.jsp" />  
+    </definition>  
+ 
+    <!-- Home Page -->
+    <definition name="index" extends="base-definition">  
+        <put-attribute name="title" value="Inicio" />  
+        <put-attribute name="body" value="/WEB-INF/jsp/index.jsp" />  
+    </definition>  
+   
+    <!-- Ofertas Empleo -->
+    <definition name="ofertasEmpleo" extends="base-definition">  
+        <put-attribute name="title" value="Inicio" />  
+        <put-attribute name="body" value="/WEB-INF/jsp/ofertasEmpleo/index.jsp" />  
+    </definition>  
+    <definition name="ofertasEmpleo/crear" extends="base-definition">  
+        <put-attribute name="title" value="Inicio" />  
+        <put-attribute name="body" value="/WEB-INF/jsp/ofertasEmpleo/crear.jsp" />  
+    </definition>  
+    <definition name="ofertasEmpleo/editar" extends="base-definition">  
+        <put-attribute name="title" value="Inicio" />  
+        <put-attribute name="body" value="/WEB-INF/jsp/ofertasEmpleo/editar.jsp" />  
+    </definition>  
+       
+    <!-- Error Page -->
+    <definition name="error" template="/WEB-INF/tiles/layouts/errorLayout.jsp">  
+        <put-attribute name="title" value="Errores" />  
+        <put-attribute name="body" value="/WEB-INF/jsp/error.jsp" />  
+    </definition>  
+
+</tiles-definitions>
