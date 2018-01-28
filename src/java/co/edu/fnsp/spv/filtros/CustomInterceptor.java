@@ -13,7 +13,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
-public class SPVInterceptor extends HandlerInterceptorAdapter {
+public class CustomInterceptor extends HandlerInterceptorAdapter {
 
     /**
      *

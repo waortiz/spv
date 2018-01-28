@@ -10,25 +10,25 @@
         <http pattern="/logout" security="none" xmlns="http://www.springframework.org/schema/security"/>
         <http auto-config='true' use-expressions="true" xmlns="http://www.springframework.org/schema/security">
             <csrf disabled="true"/>
-            <custom-filter position="PRE_AUTH_FILTER" ref="spvPreAuthenticationFilter" />
+            <custom-filter position="PRE_AUTH_FILTER" ref="customPreAuthenticationFilter" />
 	    <form-login login-page="/index" default-target-url="/index" 
                 login-processing-url="/login"
                 username-parameter="username" 
                 password-parameter="password"
-                authentication-success-handler-ref="spvAuthenticationSuccessHandler"
+                authentication-success-handler-ref="customAuthenticationSuccessHandler"
                 authentication-failure-url="/index" />
 	</http>
         <bean id="userDetailsService" class="co.edu.fnsp.spv.seguridad.UserDetailsService" />
         <bean id="preAuthenticationProvider" class="org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationProvider">
             <property name="preAuthenticatedUserDetailsService" ref="userDetailsService" />
         </bean>
-        <bean id="spvPreAuthenticationFilter"
-              class="co.edu.fnsp.spv.filtros.SPVPreAuthenticationFilter">
+        <bean id="customPreAuthenticationFilter"
+              class="co.edu.fnsp.spv.filtros.CustomPreAuthenticationFilter">
              <property name="authenticationManager" ref="authenticationManager" />
              <property name="checkForPrincipalChanges" value="true" />
         </bean>
-        <bean id="spvAuthenticationSuccessHandler"
-            class="co.edu.fnsp.spv.seguridad.SPVAuthenticationSuccessHandler" />
+        <bean id="customAuthenticationSuccessHandler"
+            class="co.edu.fnsp.spv.seguridad.CustomAuthenticationSuccessHandler" />
 	<authentication-manager erase-credentials="true" alias="authenticationManager"
             xmlns="http://www.springframework.org/schema/security">
 		<authentication-provider ref="preAuthenticationProvider" />
