@@ -3,6 +3,8 @@ package co.edu.fnsp.spv.controladores;
 import co.edu.fnsp.spv.entidades.Usuario;
 import co.edu.fnsp.spv.entidadesVista.RecuperacionClave;
 import co.edu.fnsp.spv.servicios.IServicioSeguridad;
+import co.edu.fnsp.spv.utilidades.CookieUtil;
+import co.edu.fnsp.spv.utilidades.JwtUtil;
 import co.edu.fnsp.spv.utilidades.Mail;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -39,9 +41,11 @@ public class LoginController {
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
     public String logoutPage(HttpServletRequest request, HttpServletResponse response) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        CookieUtil.clear(response, JwtUtil.jwtTokenCookieName); 
         if (auth != null) {
             new SecurityContextLogoutHandler().logout(request, response, auth);
         }
+ 
         return "redirect:/index";
     }
     

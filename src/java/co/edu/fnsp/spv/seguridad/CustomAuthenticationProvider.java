@@ -6,6 +6,7 @@
 
 package co.edu.fnsp.spv.seguridad;
 
+import co.edu.fnsp.spv.entidades.DetalleUsuario;
 import co.edu.fnsp.spv.entidades.Usuario;
 import co.edu.fnsp.spv.servicios.ServicioSeguridad;
 import java.util.Collection;
@@ -47,10 +48,19 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         if (!password.equals(usuario.getClave())) {
             throw new BadCredentialsException("Clave incorrecta");
         }
-
+        
         Collection<? extends GrantedAuthority> privilegios = usuario.getPrivilegios();
         
-        return new UsernamePasswordAuthenticationToken(usuario, password, privilegios);
+        return new UsernamePasswordAuthenticationToken(new DetalleUsuario(usuario.getIdUsuario(), 
+                usuario.getNombreUsuario(), 
+                password, 
+                true, 
+                true, 
+                true, 
+                true,
+                privilegios), 
+                password, 
+                privilegios);
     }
 
     @Override

@@ -232,7 +232,7 @@
                     <div id="login-icon">
                         <i class="fa fa-user-circle-o" aria-hidden="true"></i>
                     </div>
-                    <h2 id="start-sesion-caption">Bienvenido ${pageContext.request.userPrincipal.getPrincipal().getNombreUsuario()}</h2>
+                    <h2 id="start-sesion-caption">Bienvenido ${pageContext.request.userPrincipal.getPrincipal().username}</h2>
                     <div class="panel panel-default">
                         <div class="panel-body">
                             <ul class="nav nav-pills nav-stacked">
