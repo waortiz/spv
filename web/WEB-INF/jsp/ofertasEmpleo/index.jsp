@@ -432,7 +432,6 @@
         });        
     });
 
-    var telefonos = null;
     function mostrarOfertaEmpleo(idOfertaEmpleo) {
         $.ajax({
             type: "GET",
