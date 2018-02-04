@@ -446,6 +446,7 @@
                         $('#perfilAspirante').val("");
                         $('#titulo').val("");
                         $('#descripcion').val("");
+                        $('#nivelFormacion').val("").trigger('change');
                         $('#documento').val("");
                         $('#ubicacion').val("");
                         $('#nombreUbicacion').val("");
