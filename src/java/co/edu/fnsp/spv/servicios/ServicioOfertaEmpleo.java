@@ -11,9 +11,9 @@ import co.edu.fnsp.spv.repositorios.IRepositorioOfertaEmpleo;
 import co.edu.fnsp.spv.utilidades.Mail;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.PlatformTransactionManager;
-import org.springframework.transaction.TransactionDefinition;
 import org.springframework.transaction.TransactionException;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
@@ -34,9 +34,13 @@ public class ServicioOfertaEmpleo implements IServicioOfertaEmpleo {
     @Autowired
     private PlatformTransactionManager transactionManager;
 
+    @Value( "${jdbc.timeout}" )
+    private int timeout;
+    
     @Override
     public void ingresarOfertaEmpleo(OfertaEmpleo ofertaEmpleo) {
-        TransactionDefinition txDef = new DefaultTransactionDefinition();
+        DefaultTransactionDefinition  txDef = new DefaultTransactionDefinition();
+        txDef.setTimeout(timeout);
         TransactionStatus txStatus = transactionManager.getTransaction(txDef);
         try {
             String codigo = repositorioOfertaEmpleo.ingresarOfertaEmpleo(ofertaEmpleo);
@@ -55,7 +59,8 @@ public class ServicioOfertaEmpleo implements IServicioOfertaEmpleo {
 
     @Override
     public void actualizarOfertaEmpleo(OfertaEmpleo ofertaEmpleo) {
-        TransactionDefinition txDef = new DefaultTransactionDefinition();
+        DefaultTransactionDefinition  txDef = new DefaultTransactionDefinition();
+        txDef.setTimeout(timeout);
         TransactionStatus txStatus = transactionManager.getTransaction(txDef);
         try {
             repositorioOfertaEmpleo.actualizarOfertaEmpleo(ofertaEmpleo);

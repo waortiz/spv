@@ -9,9 +9,6 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <title>Salud P&uacute;blica Virtual - Facultad Nacional de Salud Pública</title>
         <link rel="icon" href='<c:url value="/resources/imagenes/udeaIco.png" />' type="image/png" />
-        <link rel="icon" href='<c:url value="/resources/imagenes/udeaIco.png" />' type="image/png" />
-        <link rel="stylesheet" type="text/css" href='<c:url value="/resources/css/bootstrap.min.css"/>'>
-        <script src='<c:url value="/resources/js/jquery-3.2.1.min.js" />'></script>
         <style>
             .container-fluid{
               height:100%;

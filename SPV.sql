@@ -216,7 +216,7 @@ CREATE TABLE `us_perfil` (
 
 LOCK TABLES `us_perfil` WRITE;
 /*!40000 ALTER TABLE `us_perfil` DISABLE KEYS */;
-INSERT INTO `us_perfil` VALUES (1,1,1,1);
+INSERT INTO `us_perfil` VALUES (1,1,2,1);
 /*!40000 ALTER TABLE `us_perfil` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -229,13 +229,13 @@ DROP TABLE IF EXISTS `us_usuario`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `us_usuario` (
   `us_id` int(11) NOT NULL AUTO_INCREMENT,
-  `us_persona` bigint(20) DEFAULT NULL,
-  `us_nombre_usuario` varchar(100) COLLATE utf8_spanish_ci DEFAULT NULL,
-  `us_clave` varchar(100) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `us_nombre_usuario` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
+  `us_clave` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
+  `us_persona` bigint(20) NOT NULL,
   PRIMARY KEY (`us_id`),
-  KEY `FK_persona_usuario_idx` (`us_persona`),
-  CONSTRAINT `FK_persona_usuario` FOREIGN KEY (`us_persona`) REFERENCES `buho`.`pe_persona` (`pe_id`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+  KEY `us_usuario_pe_persona_idx` (`us_persona`),
+  CONSTRAINT `us_usuario_pe_persona` FOREIGN KEY (`us_persona`) REFERENCES `buho`.`pe_persona` (`pe_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -244,7 +244,7 @@ CREATE TABLE `us_usuario` (
 
 LOCK TABLES `us_usuario` WRITE;
 /*!40000 ALTER TABLE `us_usuario` DISABLE KEYS */;
-INSERT INTO `us_usuario` VALUES (1,1,'william','123');
+INSERT INTO `us_usuario` VALUES (1,'william','123',1),(2,'Patricio','321',17);
 /*!40000 ALTER TABLE `us_usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -899,4 +899,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-01-20  8:29:16
+-- Dump completed on 2018-05-02 21:00:38

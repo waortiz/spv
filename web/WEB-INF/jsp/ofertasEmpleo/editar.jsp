@@ -141,11 +141,11 @@
                 </div>                
                 <div class="row">
                     <div class="col-md-12">
-                        <div class="form-group">
+                        <div class="form-group form-inline">
                             <label for="documento">Documento de soporte</label><a href="#" data-toggle="tooltip" data-placement="right" title = "Puede cargar el documento de soporte de la oferta">
                             <i class="fa fa-question-circle" aria-hidden="true"></i></a>  
-                            <a id="verDocumentoOferta" href="#" onclick="verDocumento()" title="Ver documento" style="margin-left: 30px;" class="btn btn-success btn-sm"><i class="fa fa-file-pdf-o" aria-hidden="true"> </i></a>
                             <input type="file" class="form-control" name="documento" id="documento">
+                            <button class="btn btn-success btn-xs" type="button" onclick="verDocumento()" data-toggle="tooltip" data-placement="top" title="Descargar"><span class="glyphicon glyphicon-download"></span></button>
                         </div>
                     </div>
                 </div>
