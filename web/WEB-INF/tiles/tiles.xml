@@ -32,7 +32,7 @@
     </definition>  
        
     <!-- Error Page -->
-    <definition name="error" template="/WEB-INF/tiles/layouts/errorLayout.jsp">  
+    <definition name="error" extends="base-definition">  
         <put-attribute name="title" value="Errores" />  
         <put-attribute name="body" value="/WEB-INF/jsp/error.jsp" />  
     </definition>  

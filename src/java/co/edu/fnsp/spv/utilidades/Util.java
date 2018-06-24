@@ -6,6 +6,7 @@
 package co.edu.fnsp.spv.utilidades;
 
 import co.edu.fnsp.spv.entidades.Telefono;
+import com.google.gson.Gson;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -76,28 +77,17 @@ public class Util {
     }
 
     public static String obtenerTelefonosJSON(List<Telefono> telefonos) {
-        String jscriptArray = "";
+        Util.establecerConsecutivoTelefonos(telefonos);
+        Gson gson = new Gson();
+        String json = gson.toJson(telefonos);
 
-        if (telefonos.size() > 0) {
-            jscriptArray = "[";
-
-            for (int i = 0; i < telefonos.size(); i++) {
-                Telefono telefono = telefonos.get(i);
-                jscriptArray = jscriptArray
-                        + "{id: ko.observable(" + telefono.getId() + "),"
-                        + "correoElectronico:ko.observable('" + telefono.getCorreoElectronico() + "'),"
-                        + "nombreContacto:ko.observable('" + telefono.getNombreContacto() + "'),"
-                        + "numero:ko.observable('" + telefono.getNumero() + "'),"
-                        + "consecutivo:ko.observable(" + i + ")"
-                        + "}";
-                if (i < telefonos.size() - 1) {
-                    jscriptArray = jscriptArray + ",";
-                }
-            }
-
-            jscriptArray = jscriptArray + "]";
+        return json;
+    }
+    
+    public static void establecerConsecutivoTelefonos(List<Telefono> telefonos) {
+        for (int i = 0; i < telefonos.size(); i++) {
+            Telefono telefono = telefonos.get(i);
+            telefono.setConsecutivo(i);
         }
-
-        return jscriptArray;
     }
 }

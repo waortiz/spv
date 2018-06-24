@@ -37,7 +37,6 @@ public class Mail {
             message.setSubject(subject);
             MimeMessageHelper helper;
             helper = new MimeMessageHelper(message, true);
-            helper.setFrom("soporte@gpci.com");
             helper.setTo(to);
             helper.setText(msg, true);
             mailSender.send(message);

@@ -294,7 +294,7 @@
     <div class="modal-dialog">
         <form id="validarEdicionOfertaEmpleo" method="POST">
             <div class="modal-content">
-                <div class="modal-header">
+                <div class="modal-header mhsuccess">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                     <h4 class="modal-title">Validación Oferta Empleo</h4>                                
                 </div>

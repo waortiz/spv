@@ -14,7 +14,7 @@
                         <div class="form-group">
                             <label for="nombreOfertante">Nombre de quien publica la oferta</label>
                             <a href="#" data-toggle="tooltip" data-placement="right" title = "Registrar el nombre de la persona que publica la oferta"><i class="fa fa-question-circle" aria-hidden="true"></i></a> 
-                                <form:input class="form-control" path="nombreOfertante" data-validation="required"/>
+                                <form:input class="form-control" path="nombreOfertante" data-validation="required" data-validation-error-msg="Debe indicar el nombre de la persona que publica la oferta" maxlength="300"/>
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -24,7 +24,7 @@
                                 <i class="fa fa-question-circle" aria-hidden="true"></i>
                             </a> 
                             <div class='input-group date' id='datetimepicker1'>
-                                <form:input class="form-control fecha" path="fechaVigencia" data-validation="required"/>
+                                <form:input class="form-control fecha" path="fechaVigencia" data-validation="required" data-validation-error-msg="Debe indicar la fecha de cierre de la oferta"/>
                                 <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
                                 </span>
                             </div>
@@ -35,23 +35,23 @@
                     <div class="col-md-8">
                         <div class="form-group">
                             <label for="empresa">Empresa</label> <a href="#" data-toggle="tooltip" data-placement="right" title = "Debe indicar el nombre de empresa u organizaci&oacute;n"><i class="fa fa-question-circle" aria-hidden="true"></i></a> 
-                                <form:input class="form-control" path="empresa" data-validation="required" />
+                                <form:input class="form-control" path="empresa" data-validation="required" data-validation-error-msg="Debe indicar el nombre de empresa u organización" maxlength="100" />
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
                             <label>Ubicaci&oacute;n</label> <a href="#" data-toggle="tooltip" data-placement="right" title = "Debe indicar la ubicaci&oacute;n de la empresa"><i class="fa fa-question-circle" aria-hidden="true"></i></a><br>
-                                <form:input path="nombreUbicacion" class="form-control" style="width: 210px; display: inline" readonly="true" data-validation="required" />
+                                <form:input path="nombreUbicacion" class="form-control" style="width: 210px; display: inline" readonly="true" data-validation="required" data-validation-error-msg="Debe indicar la ubicación de la empresa"/>
                                 <form:hidden path="ubicacion" />
-                            <button type="button" class="btn btn-success btn-xs" data-target="#ubicacionModal" data-toggle="modal" style="margin-left: 10px;">
+                            <button type="button" class="btn btn-success btn-xs" onclick="mostrarUbicacionModal();" data-toggle="modal" style="margin-left: 10px;">
                                 <span class="glyphicon glyphicon-search"></span>
                             </button>
                         </div>
                     </div>
-                    <div class="modal" tabindex="1" id="ubicacionModal">
+                    <div class="modal fade" id="ubicacionModal">
                         <div class="modal-dialog modal-sm">
                             <div class="modal-content">
-                                <div class="modal-header">   
+                                <div class="modal-header mhsuccess">   
                                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                                     <h3 class="modal-title">Buscar ciudad</h3>
                                 </div>
@@ -76,7 +76,7 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-success" id="seleccionUbicacion">Aceptar</button>
-                                    <button type="button" class="btn btn-default" id="cancelar">Cancelar</button>
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
                                 </div>
                             </div>
                         </div>
@@ -86,13 +86,13 @@
                     <div class="col-md-9">
                         <div class="form-group">
                             <label for="cargo">Cargo solicitado</label> <a href="#" data-toggle="tooltip" data-placement="right" title = "Debe indicar el cargo"><i class="fa fa-question-circle" aria-hidden="true"></i></a> 
-                                <form:input class="form-control" path="cargo" data-validation="required" />
+                                <form:input class="form-control" path="cargo" data-validation="required" data-validation-error-msg="Debe indicar el cargo" maxlength="100" />
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
                             <label for="salario">Salario</label> <a href="#" data-toggle="tooltip" data-placement="right" title = "Debe indicar el salario"><i class="fa fa-question-circle" aria-hidden="true"></i></a> 
-                                <form:input class="form-control currencyField" path="salario" data-validation="required" />
+                                <form:input class="form-control currencyField" path="salario" maxlength="20" />
                         </div>   
                     </div>
                 </div>
@@ -100,7 +100,7 @@
                     <div class="col-md-12">
                         <div class="form-group">
                             <label for="titulo">T&iacute;tulo solicitado</label> <a href="#" data-toggle="tooltip" data-placement="right" title = "Debe registrar el t&iacute;tulo requerido"><i class="fa fa-question-circle" aria-hidden="true"></i></a> 
-                            <form:textarea class="form-control" path="titulo" />
+                            <form:textarea class="form-control" path="titulo" maxlength="100"/>
                         </div>
                     </div>
                 </div>
@@ -108,7 +108,7 @@
                     <div class="col-md-12">
                         <div class="form-group">
                             <label for="perfilAspirante">Perfil</label> <a href="#" data-toggle="tooltip" data-placement="right" title = "Debe describir brevemente las habilidades y valores requeridos para el cargo"><i class="fa fa-question-circle" aria-hidden="true"></i></a> 
-                            <form:textarea class="form-control" path="perfilAspirante" />
+                            <form:textarea class="form-control" path="perfilAspirante" maxlength="500"/>
                         </div>
                     </div>
                 </div>                        
@@ -125,7 +125,7 @@
                         <div class="form-group">
                             <label for="experienciaMinina">A&nacute;os de experiencia m&iacute;nima</label>
                             <a href="#" data-toggle="tooltip" data-placement="right" title = "Debe indicar el tiempo de su experiencia"><i class="fa fa-question-circle" aria-hidden="true"></i></a> 
-                                <form:input class="form-control" path="experienciaMinina" />
+                                <form:input class="form-control" path="experienciaMinina"  maxlength="10"/>
                         </div>
                     </div>
                     <div class="col-md-8">
@@ -144,7 +144,7 @@
                         <div class="form-group form-inline">
                             <label for="documento">Documento de soporte</label><a href="#" data-toggle="tooltip" data-placement="right" title = "Puede cargar el documento de soporte de la oferta">
                             <i class="fa fa-question-circle" aria-hidden="true"></i></a>  
-                            <input type="file" class="form-control" name="documento" id="documento">
+                            <input type="file" class="form-control" accept=".pdf,.png,.jpg,.jpeg" name="documento" id="documento">
                             <button class="btn btn-success btn-xs" type="button" onclick="verDocumento()" data-toggle="tooltip" data-placement="top" title="Descargar"><span class="glyphicon glyphicon-download"></span></button>
                         </div>
                     </div>
@@ -155,7 +155,10 @@
                         <button style="margin-left: 10px; margin-bottom: 20px;" type="button" class="btn btn-success btn-sm" onclick="nuevoTelefono();" >
                             <span class="glyphicon glyphicon-plus"></span>
                         </button>
-                        <table class="table table-hover tableestilo" id="tbtel">
+                        <div class="table-responsive">
+                            <br />
+                            <div id="alert_telefonos"></div>
+                            <table class="table table-hover tableestilo" id="tbtel">
                             <thead>
                                 <th>Nombre del contacto</th>
                                 <th>Telef&oacute;no</th>
@@ -167,19 +170,15 @@
                                 <tr class="table-row">
                                     <td style="width: 30%">
                                         <span data-bind="text: nombreContacto" ></span>
-                                        <input type="hidden" class="form-control" data-bind="value: nombreContacto, attr: { 'name': 'telefonos[' + $index() + '].nombreContacto'  }">
                                     </td>
                                     <td style="width: 30%">
                                         <span data-bind="text: numero" ></span>
-                                        <input type="hidden" class="form-control" data-bind="value: numero, attr: { 'name': 'telefonos[' + $index() + '].numero'  }">
                                     </td>
                                     <td style="width: 30%">
                                         <span data-bind="text: correoElectronico" ></span>
-                                        <input type="hidden" class="form-control" data-bind="value: correoElectronico, attr: { 'name': 'telefonos[' + $index() + '].correoElectronico'  }">
                                     </td>
                                     <td style="width: 5%">
                                         <button class='btn btn-success btn-xs' type='button' data-bind="click: $root.editarTelefono"><i class='fa fa-pencil' aria-hidden='true'></i></button>
-                                        <input type="hidden" data-bind="value: consecutivo, attr: { 'name': 'telefonos[' + $index() + '].consecutivo'  }" />
                                     </td>
                                     <td style="width: 5%">
                                         <button class='btn btn-danger btn-xs' type='button' data-bind="click: $root.eliminarTelefono"><span class='glyphicon glyphicon-remove'></span></button>
@@ -187,6 +186,7 @@
                                 </tr>
                             </tbody>                            
                         </table>
+                        </div>
                     </div>
                 </div>
                 <button class="btn btn-success" type="submit">Guardar</button>
@@ -219,7 +219,7 @@
                             <div class="modal fade" id="lostPassword" tabindex="-1" role="dialog">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
-                                        <div class="modal-header">
+                                        <div class="modal-header mhsuccess">
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                             <h4 class="modal-title">Recuperar contraseña</h4>
                                         </div>
@@ -233,9 +233,9 @@
                                             <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
                                             <button type="button" class="btn btn-primary">Enviar</button>
                                         </div>
-                                    </div><!-- /.modal-content -->
-                                </div><!-- /.modal-dialog -->
-                            </div><!-- /.modal -->
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </c:when>
@@ -301,11 +301,12 @@
     <div class="modal-dialog">
         <!-- Modal content-->
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header mhsuccess">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h4 class="modal-title">Contacto o enlace</h4>
             </div>
             <div class="modal-body">
+                <div id="alert_telefono"></div>
                 <div class="row" >
                     <div class="col-md-12">
                         <div class="form-group">
@@ -341,27 +342,10 @@
         </div>              
     </div>
 </div>
-<div class="modal fade" id="confirmacionEliminacionTelefono" role="dialog">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Eliminar Teléfono</h4>                
-            </div>
-            <div class="modal-body">
-                ¿Está seguro de eliminar el teléfono?
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-success" data-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-success" onclick="eliminarTelefono();">Eliminar</button>
-            </div>
-        </div>
-    </div>
-</div>       
 <div class="modal fade" id="confirmacionAlmacenamientoOfertaEmpleo" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header mhsuccess">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h4 class="modal-title">Actualización Oferta Empleo</h4>                                
             </div>
@@ -375,7 +359,14 @@
     </div>
 </div>                            
 <script>
+    var contextPath = "${pageContext.request.contextPath}";
+    var MAXIMO_TAMANYO_ARCHIVO = 2097152;
     var optsFC = {decimalSymbol: ',', digitGroupSymbol: '.', roundToDecimalPlace: 0};
+    $.validate({
+        validateOnBlur: false, // disable validation when input looses focus
+        errorMessagePosition: 'top', // Instead of 'inline' which is default
+        scrollToTopOnError: false // Set this property to true on longer forms
+    });    
     $(document).ready(function () {
         $('#salario').keyup(function () {
             this.value = (this.value + '').replace(/[^0-9]/g, '');
@@ -406,7 +397,28 @@
         }
         $('#ofertaEmpleo').submit(function (evt) {
             evt.preventDefault();
-            var formData = new FormData(this);
+            if($('#documento').val() != "" && $('#documento')[0].files[0].size > MAXIMO_TAMANYO_ARCHIVO) {
+                alert_placeholder_oferta_empleo.warning("El documento no puede ser mayor a 2MB.");
+                return;
+            }
+            
+            var formData = new FormData();
+            formData.append("id", $("#id").val());
+            formData.append("cargo", $("#cargo").val());
+            formData.append("descripcion", $("#descripcion").val());
+            formData.append("empresa", $("#empresa").val());
+            formData.append("fechaVigencia", $("#fechaVigencia").val());
+            formData.append("nombreOfertante", $("#nombreOfertante").val());
+            formData.append("titulo", $("#titulo").val());
+            formData.append("perfilAspirante", $("#perfilAspirante").val());
+            formData.append("salario", $("#salario").val());
+            formData.append("experienciaMinina", $("#experienciaMinina").val());
+            formData.append("nivelFormacion", $("#nivelFormacion").val());
+            formData.append("ubicacion", $("#ubicacion").val());
+            formData.append("correoElectronicoPublicador", $("#correoElectronicoPublicador").val());
+            if ($('#documento').val() != "") {
+                formData.append("documento", $('#documento')[0].files[0]);
+            }
             $.ajax({
                 type: "POST",
                 url: "${pageContext.request.contextPath}/ofertasEmpleo/editar",
@@ -439,7 +451,7 @@
     function buscarDepartamentos(idPais) {
         $.ajax({
             type: "GET",
-            url: "${pageContext.request.contextPath}/ofertasEmpleo/departamentosPais/" + idPais,
+            url: contextPath + "/ofertasEmpleo/departamentosPais/" + idPais,
             processData: false,
             contentType: false,
             success: function (response) {
@@ -457,7 +469,7 @@
     function buscarCiudades(codigoDepartamento) {
         $.ajax({
             type: "GET",
-            url: "${pageContext.request.contextPath}/ofertasEmpleo/ciudadesDepartamento/" + codigoDepartamento,
+            url: contextPath + "/ofertasEmpleo/ciudadesDepartamento/" + codigoDepartamento,
             processData: false,
             contentType: false,
             success: function (response) {
@@ -472,7 +484,10 @@
             }});
     }
 
-    var telefonoEliminar = null;
+    function mostrarUbicacionModal() {
+        $('#ubicacionModal').modal({backdrop: 'static', keyboard: false});
+    }
+    
     var TelefonoModel = function (telefonos) {
         self = this;
         self.telefonos = ko.observableArray(telefonos);
@@ -480,41 +495,99 @@
             var nombreContacto = $('#nombreContacto').val();
             var numero = $('#numero').val();
             var correoElectronico = $('#correoElectronico').val();
-            if ($('#consecutivo').val() === "") {
-                self.telefonos.push({
-                    consecutivo: ko.observable(self.telefonos().length + 1),
-                    nombreContacto: ko.observable(nombreContacto),
-                    numero: ko.observable(numero),
-                    correoElectronico: ko.observable(correoElectronico)
-                });
+            if(nombreContacto == "") {
+               bootstrap_alert_telefono.warning("Debe ingresar el nombre del contacto"); 
+               return;
+            }
+            if(numero == "") {
+               bootstrap_alert_telefono.warning("Debe ingresar el número de contacto"); 
+               return;
+            }
+            var formData = new FormData();
+            if ($('#consecutivo').val() == "") {
+                formData.append("id", 0);
+                formData.append("consecutivo", self.telefonos().length);
             } else {
                 var consecutivo = parseInt($('#consecutivo').val(), 10);
                 var indice = 0;
                 for (i = 0; i < self.telefonos().length; i++) {
-                    if (self.telefonos()[i].consecutivo() === consecutivo) {
+                    if (self.telefonos()[i].consecutivo() == consecutivo) {
                         indice = i;
                         break;
                     }
                 }
-                self.telefonos()[indice].nombreContacto(nombreContacto);
-                self.telefonos()[indice].numero(numero);
-                self.telefonos()[indice].correoElectronico(correoElectronico);
+                formData.append("id", self.telefonos()[indice].id());
+                formData.append("consecutivo", consecutivo);
             }
-            $('#md_telefono').modal('hide');
-            $('#nombreContacto').val("");
-            $('#numero').val("");
-            $('#correoElectronico').val("");
+            formData.append("nombreContacto", nombreContacto);
+            formData.append("numero", numero);
+            formData.append("correoElectronico", correoElectronico);
+            formData.append("idOfertaEmpleo", $("#id").val());
+
+            $.ajax({
+                type: "POST",
+                url: contextPath + "/ofertasEmpleo/telefono",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    $('#md_telefono').modal('hide');
+                    bootstrap_alert_telefonos.success('Contacto almacenado correctamente');
+                    if (response !== "") {
+                        self.telefonos.removeAll();
+                        var telefonos = JSON.parse(response);
+                        for (var i = 0; i < telefonos.length; i++) {
+                            self.telefonos.push(
+                                {
+                                    id: ko.observable(telefonos[i].id),
+                                    consecutivo: ko.observable(telefonos[i].consecutivo),
+                                    nombreContacto: ko.observable(telefonos[i].nombreContacto),
+                                    correoElectronico: ko.observable(telefonos[i].correoElectronico),
+                                    numero: ko.observable(telefonos[i].numero)
+                                }
+                             );
+                        }
+                    } 
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    bootstrap_alert_telefonos.warning("Error al almacenar contacto.");
+                }});
         };
+
         self.eliminarTelefono = function (telefono) {
-            telefonoEliminar = telefono;
-            $('#confirmacionEliminacionTelefono').modal('show');
+            $.ajax({
+                type: "GET",
+                url: contextPath + "/ofertasEmpleo/eliminarTelefono/" + $("#id").val()  + "/" + telefono.id(),
+                success: function (response) {
+                    bootstrap_alert_telefonos.success('Contacto eliminado correctamente');
+                    if (response !== "") {
+                        self.telefonos.removeAll();
+                        var telefonos = JSON.parse(response);
+                        for (var i = 0; i < telefonos.length; i++) {
+                            self.telefonos.push(
+                                {
+                                    id: ko.observable(telefonos[i].id),
+                                    consecutivo: ko.observable(telefonos[i].consecutivo),
+                                    nombreContacto: ko.observable(telefonos[i].nombreContacto),
+                                    correoElectronico: ko.observable(telefonos[i].correoElectronico),
+                                    numero: ko.observable(telefonos[i].numero)
+                                }
+                             );
+                        }
+                    } 
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    bootstrap_alert_telefonos.warning("Error al eliminar el contacto");
+                }});
         };
+
         self.editarTelefono = function (telefono) {
             $('#nombreContacto').val(telefono.nombreContacto());
             $('#numero').val(telefono.numero());
             $('#correoElectronico').val(telefono.correoElectronico());
             $('#consecutivo').val(telefono.consecutivo());
-            $('#md_telefono').modal('show');
+            bootstrap_alert_telefono.removeWarning();
+            $('#md_telefono').modal({backdrop: 'static', keyboard: false});
         };
     };
 
@@ -523,18 +596,28 @@
         $('#numero').val('');
         $('#correoElectronico').val('');
         $('#consecutivo').val('');
-        $('#md_telefono').modal('show');
-    }
-
-    function eliminarTelefono() {
-        telefonoModel.telefonos.remove(telefonoEliminar);
-        $('#confirmacionEliminacionTelefono').modal('hide');
+        bootstrap_alert_telefono.removeWarning();
+        bootstrap_alert_telefonos.removeWarning();
+        $('#md_telefono').modal({backdrop: 'static', keyboard: false});
     }
 
     function verDocumento() {
         if ($('#tieneDocumento').val() === "true") {
-            window.location.href = "${pageContext.request.contextPath}/ofertasEmpleo/documento/" + $('#id').val();
-        }
+            $.ajax({
+                type: "GET",
+                url: "${pageContext.request.contextPath}/ofertasEmpleo/documento/" + $('#id').val(),
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                   if(response != "") {
+                     window.location.href = "${pageContext.request.contextPath}/ofertasEmpleo/documento/" + $('#id').val();
+                   }
+                },
+                error:function (xhr, ajaxOptions, thrownError) {
+                    
+                } 
+            });        
+       }
     }
 
     var telefonos = [];
@@ -542,7 +625,7 @@
     telefonos = ${telefonosJSON};
     </c:if>
 
-    var telefonoModel = new TelefonoModel(telefonos);
+    var telefonoModel = new TelefonoModel([]);
     ko.applyBindings(telefonoModel);
 
     alert_placeholder_oferta_empleo = function () { };
@@ -555,4 +638,35 @@
     alert_placeholder_oferta_empleo.removeWarning = function () {
         $('#alert_placeholder_oferta_empleo').html('');
     };
+    
+    bootstrap_alert_telefono = {};
+    bootstrap_alert_telefono.warning = function (message) {
+        $('#alert_telefono').html('<div class="alert alert-danger"><a class="close" data-dismiss="alert">×</a><span>' + message + '</span></div>');
+    };
+    bootstrap_alert_telefono.removeWarning = function () {
+        $('#alert_telefono').html('');
+    };
+
+    bootstrap_alert_telefonos = {};
+    bootstrap_alert_telefonos.warning = function (message) {
+        $('#alert_telefonos').html('<div class="alert alert-danger"><a class="close" data-dismiss="alert">×</a><span>' + message + '</span></div>');
+    };
+    bootstrap_alert_telefonos.removeWarning = function () {
+        $('#alert_telefonos').html('');
+    };
+    bootstrap_alert_telefonos.success = function (message) {
+        $('#alert_telefonos').html('<div class="alert alert-success"><a class="close" data-dismiss="alert">×</a><span>' + message + '</span></div>');
+    };
+    
+    for (var i = 0; i < telefonos.length; i++) {
+        telefonoModel.telefonos.push(
+            {
+                id: ko.observable(telefonos[i].id),
+                consecutivo: ko.observable(telefonos[i].consecutivo),
+                nombreContacto: ko.observable(telefonos[i].nombreContacto),
+                correoElectronico: ko.observable(telefonos[i].correoElectronico),
+                numero: ko.observable(telefonos[i].numero)
+            }
+         );
+    }
 </script>

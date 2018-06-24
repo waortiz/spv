@@ -25,6 +25,7 @@
         <script type="text/javascript" src='<c:url value="/resources/js/jquery.formatCurrency-1.4.0.min.js" />'></script>
         <script type="text/javascript" src='<c:url value="/resources/js/jquery.dataTables.min.js" />'></script>
         <script type="text/javascript" src='<c:url value="/resources/js/dataTables.bootstrap.min.js" />'></script>
+        <script type="text/javascript" src='<c:url value="/resources/js/jquery.form-validator.min.js" />'></script>
     </head>
     <body>
         <header id="custom-header">

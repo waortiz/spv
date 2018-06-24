@@ -10,12 +10,14 @@ package co.edu.fnsp.spv.entidades;
  * @author William
  */
 public class Telefono {
-    
+
     private int id;
+    private int idOfertaEmpleo;
+    private int consecutivo;
     private String nombreContacto;
     private String numero;
     private String correoElectronico;
-    
+
     /**
      * @return the id
      */
@@ -70,5 +72,33 @@ public class Telefono {
      */
     public void setCorreoElectronico(String correoElectronico) {
         this.correoElectronico = correoElectronico;
+    }
+
+    /**
+     * @return the consecutivo
+     */
+    public int getConsecutivo() {
+        return consecutivo;
+    }
+
+    /**
+     * @param consecutivo the consecutivo to set
+     */
+    public void setConsecutivo(int consecutivo) {
+        this.consecutivo = consecutivo;
+    }
+
+    /**
+     * @return the idOfertaEmpleo
+     */
+    public int getIdOfertaEmpleo() {
+        return idOfertaEmpleo;
+    }
+
+    /**
+     * @param idOfertaEmpleo the idOfertaEmpleo to set
+     */
+    public void setIdOfertaEmpleo(int idOfertaEmpleo) {
+        this.idOfertaEmpleo = idOfertaEmpleo;
     }
 }

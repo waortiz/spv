@@ -59,12 +59,13 @@ public class RepositorioOfertaEmpleo implements IRepositorioOfertaEmpleo {
         this.ingresarDocumentoOfertaEmpleo = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ingresarDocumentoOfertaEmpleo");
 
         this.ingresarTelefonoOferta = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ingresarTelefonoOferta");
+        this.actualizarTelefonoOferta = new SimpleJdbcCall(jdbcTemplate).withProcedureName("actualizarTelefonoOferta");
         this.eliminarTelefonoOferta = new SimpleJdbcCall(jdbcTemplate).withProcedureName("eliminarTelefonoOferta");
         this.obtenerTelefonosOferta = new SimpleJdbcCall(jdbcTemplate).withProcedureName("obtenerTelefonosOferta").returningResultSet("telefonos", BeanPropertyRowMapper.newInstance(Telefono.class));
     }
 
     @Override
-    public String ingresarOfertaEmpleo(OfertaEmpleo ofertaEmpleo) {
+    public OfertaEmpleo ingresarOfertaEmpleo(OfertaEmpleo ofertaEmpleo) {
         MapSqlParameterSource parametros = new MapSqlParameterSource();
         parametros.addValue("varCargo", ofertaEmpleo.getCargo());
         parametros.addValue("varDescripcion", ofertaEmpleo.getDescripcion());
@@ -75,7 +76,7 @@ public class RepositorioOfertaEmpleo implements IRepositorioOfertaEmpleo {
         parametros.addValue("varTitulo", ofertaEmpleo.getTitulo());
         parametros.addValue("varSalario", ofertaEmpleo.getSalario());
         parametros.addValue("varUbicacion", ofertaEmpleo.getUbicacion());
-        if (ofertaEmpleo.getNivelFormacion()!= null && ofertaEmpleo.getNivelFormacion() != "") {
+        if (ofertaEmpleo.getNivelFormacion() != null && ofertaEmpleo.getNivelFormacion() != "") {
             parametros.addValue("varNivelFormacion", ofertaEmpleo.getNivelFormacion());
         } else {
             parametros.addValue("varNivelFormacion", null);
@@ -85,15 +86,6 @@ public class RepositorioOfertaEmpleo implements IRepositorioOfertaEmpleo {
         Map resultado = ingresarOfertaEmpleo.execute(parametros);
         int idOfertaEmpleo = (int) resultado.get("varIdOfertaEmpleo");
         String codigo = (String) resultado.get("varCodigo");
-
-        MapSqlParameterSource parametrosIngresoTelefono = new MapSqlParameterSource();
-        parametrosIngresoTelefono.addValue("varIdOfertaEmpleo", idOfertaEmpleo);
-        for (Telefono telefono : ofertaEmpleo.getTelefonos()) {
-            parametrosIngresoTelefono.addValue("varCorreoElectronico", telefono.getCorreoElectronico());
-            parametrosIngresoTelefono.addValue("varNombreContacto", telefono.getNombreContacto());
-            parametrosIngresoTelefono.addValue("varNumero", telefono.getNumero());
-            ingresarTelefonoOferta.execute(parametrosIngresoTelefono);
-        }
 
         Documento documento = ofertaEmpleo.getDocumento();
         if (documento != null) {
@@ -105,7 +97,11 @@ public class RepositorioOfertaEmpleo implements IRepositorioOfertaEmpleo {
             ingresarDocumentoOfertaEmpleo.execute(parametrosIngresoDocumentoOfertaEmpleo);
         }
 
-        return codigo;
+        OfertaEmpleo nuevaOfertaEmpleo = new OfertaEmpleo();
+        nuevaOfertaEmpleo.setCodigo(codigo);
+        nuevaOfertaEmpleo.setId(idOfertaEmpleo);
+
+        return nuevaOfertaEmpleo;
     }
 
     @Override
@@ -121,7 +117,7 @@ public class RepositorioOfertaEmpleo implements IRepositorioOfertaEmpleo {
         parametros.addValue("varPerfilAspirante", ofertaEmpleo.getPerfilAspirante());
         parametros.addValue("varSalario", ofertaEmpleo.getSalario());
         parametros.addValue("varUbicacion", ofertaEmpleo.getUbicacion());
-        if (ofertaEmpleo.getNivelFormacion() != null && ofertaEmpleo.getNivelFormacion() != "" ) {
+        if (ofertaEmpleo.getNivelFormacion() != null && ofertaEmpleo.getNivelFormacion().trim().length() > 0) {
             parametros.addValue("varNivelFormacion", ofertaEmpleo.getNivelFormacion());
         } else {
             parametros.addValue("varNivelFormacion", null);
@@ -129,8 +125,6 @@ public class RepositorioOfertaEmpleo implements IRepositorioOfertaEmpleo {
         parametros.addValue("varExperienciaMinina", ofertaEmpleo.getExperienciaMinina());
         parametros.addValue("varCorreoElectronicoPublicador", ofertaEmpleo.getCorreoElectronicoPublicador());
         actualizarOfertaEmpleo.execute(parametros);
-
-        actualizarTelefono(ofertaEmpleo.getId(), ofertaEmpleo.getTelefonos());
 
         Documento documento = ofertaEmpleo.getDocumento();
         if (documento != null) {
@@ -213,44 +207,40 @@ public class RepositorioOfertaEmpleo implements IRepositorioOfertaEmpleo {
         return documento;
     }
 
-    private void actualizarTelefono(int idOfertaEmpleo, List<Telefono> telefonos) {
+    @Override
+    public List<Telefono> obtenerTelefonos(int idOfertaEmpleo) {
         MapSqlParameterSource parametrosConsultaTelefonos = new MapSqlParameterSource();
         parametrosConsultaTelefonos.addValue("varIdOfertaEmpleo", idOfertaEmpleo);
         Map resultadoTelefonos = obtenerTelefonosOferta.execute(parametrosConsultaTelefonos);
-        ArrayList<Telefono> telefonosActuales = (ArrayList<Telefono>) resultadoTelefonos.get("telefonos");
+        ArrayList<Telefono> telefonos = (ArrayList<Telefono>) resultadoTelefonos.get("telefonos");
 
+        return telefonos;
+    }
+
+    @Override
+    public void guardarTelefono(int idOfertaEmpleo, Telefono telefono) {
+        if (telefono.getId() == 0) {
+            MapSqlParameterSource parametrosIngresoTelefono = new MapSqlParameterSource();
+            parametrosIngresoTelefono.addValue("varIdOfertaEmpleo", idOfertaEmpleo);
+            parametrosIngresoTelefono.addValue("varCorreoElectronico", telefono.getCorreoElectronico());
+            parametrosIngresoTelefono.addValue("varNombreContacto", telefono.getNombreContacto());
+            parametrosIngresoTelefono.addValue("varNumero", telefono.getNumero());
+            ingresarTelefonoOferta.execute(parametrosIngresoTelefono);
+        } else {
+            MapSqlParameterSource parametrosActualizacionTelefono = new MapSqlParameterSource();
+            parametrosActualizacionTelefono.addValue("varId", telefono.getId());
+            parametrosActualizacionTelefono.addValue("varCorreoElectronico", telefono.getCorreoElectronico());
+            parametrosActualizacionTelefono.addValue("varNombreContacto", telefono.getNombreContacto());
+            parametrosActualizacionTelefono.addValue("varNumero", telefono.getNumero());
+            actualizarTelefonoOferta.execute(parametrosActualizacionTelefono);
+        }
+    }
+
+    @Override
+    public void eliminarTelefono(int idTelefono) {
         MapSqlParameterSource parametrosEliminacionTelefono = new MapSqlParameterSource();
-        MapSqlParameterSource parametrosActualizacionTelefono = new MapSqlParameterSource();
-        for (Telefono telefonoActual : telefonosActuales) {
-            Telefono telefonoModificado = null;
-            for (Telefono telefono : telefonos) {
-                if (telefono.getId() == telefonoActual.getId()) {
-                    telefonoModificado = telefono;
-                    break;
-                }
-            }
-            if (telefonoModificado == null) {
-                parametrosEliminacionTelefono.addValue("varId", telefonoActual.getId());
-                eliminarTelefonoOferta.execute(parametrosEliminacionTelefono);
-            } else {
-                parametrosActualizacionTelefono.addValue("varId", telefonoModificado.getId());
-                parametrosActualizacionTelefono.addValue("varCorreoElectronico", telefonoModificado.getCorreoElectronico());
-                parametrosActualizacionTelefono.addValue("varNombreContacto", telefonoModificado.getNombreContacto());
-                parametrosActualizacionTelefono.addValue("varNumero", telefonoModificado.getNumero());
-                actualizarTelefonoOferta.execute(parametrosActualizacionTelefono);
-            }
-        }
-
-        MapSqlParameterSource parametrosIngresoTelefono = new MapSqlParameterSource();
-        parametrosIngresoTelefono.addValue("varIdOfertaEmpleo", idOfertaEmpleo);
-        for (Telefono telefono : telefonos) {
-            if (telefono.getId() == 0) {
-                parametrosIngresoTelefono.addValue("varCorreoElectronico", telefono.getCorreoElectronico());
-                parametrosIngresoTelefono.addValue("varNombreContacto", telefono.getNombreContacto());
-                parametrosIngresoTelefono.addValue("varNumero", telefono.getNumero());
-                ingresarTelefonoOferta.execute(parametrosIngresoTelefono);
-            }
-        }
+        parametrosEliminacionTelefono.addValue("varId", idTelefono);
+        eliminarTelefonoOferta.execute(parametrosEliminacionTelefono);
     }
 
     @Override

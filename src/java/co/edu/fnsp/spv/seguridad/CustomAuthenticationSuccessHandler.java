@@ -37,7 +37,7 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
     @Override
     public void onAuthenticationSuccess(final HttpServletRequest request, final HttpServletResponse response, final Authentication authentication) throws IOException {
         String token = JwtUtil.generateToken(JwtUtil.signingKey, ((DetalleUsuario)authentication.getPrincipal()).getUsername());
-        CookieUtil.create(response, JwtUtil.jwtTokenCookieName, token, false, -1);
+        CookieUtil.create(response, JwtUtil.jwtTokenCookieName, token, false, -1, request.getServerName());
         handle(request, response, authentication);
     }
 

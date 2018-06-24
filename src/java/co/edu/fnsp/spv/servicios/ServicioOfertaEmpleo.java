@@ -7,6 +7,7 @@ package co.edu.fnsp.spv.servicios;
 
 import co.edu.fnsp.spv.entidades.Documento;
 import co.edu.fnsp.spv.entidades.OfertaEmpleo;
+import co.edu.fnsp.spv.entidades.Telefono;
 import co.edu.fnsp.spv.repositorios.IRepositorioOfertaEmpleo;
 import co.edu.fnsp.spv.utilidades.Mail;
 import java.util.List;
@@ -31,46 +32,28 @@ public class ServicioOfertaEmpleo implements IServicioOfertaEmpleo {
     @Autowired
     private IRepositorioOfertaEmpleo repositorioOfertaEmpleo;
 
-    @Autowired
-    private PlatformTransactionManager transactionManager;
-
-    @Value( "${jdbc.timeout}" )
-    private int timeout;
-    
     @Override
-    public void ingresarOfertaEmpleo(OfertaEmpleo ofertaEmpleo) {
-        DefaultTransactionDefinition  txDef = new DefaultTransactionDefinition();
-        txDef.setTimeout(timeout);
-        TransactionStatus txStatus = transactionManager.getTransaction(txDef);
-        try {
-            String codigo = repositorioOfertaEmpleo.ingresarOfertaEmpleo(ofertaEmpleo);
-            transactionManager.commit(txStatus);
-
-            if (ofertaEmpleo.getCorreoElectronicoPublicador() != null && ofertaEmpleo.getCorreoElectronicoPublicador().length() > 0) {
-                mail.sendMail(ofertaEmpleo.getCorreoElectronicoPublicador(),
-                        "Código Oferta Laboral",
-                        "Se ha generado el código <b>" + codigo + "</b> para modificar la oferta laboral");
+    public int ingresarOfertaEmpleo(OfertaEmpleo ofertaEmpleo) {
+        OfertaEmpleo nuevaOfertaEmpleo = repositorioOfertaEmpleo.ingresarOfertaEmpleo(ofertaEmpleo);
+        if (ofertaEmpleo.getCorreoElectronicoPublicador() != null && ofertaEmpleo.getCorreoElectronicoPublicador().length() > 0) {
+            try {
+                new Thread(() -> {
+                    mail.sendMail(ofertaEmpleo.getCorreoElectronicoPublicador(),
+                            "Código Oferta Laboral",
+                            "Se ha generado el código <b>" + nuevaOfertaEmpleo.getCodigo() + "</b> para modificar la oferta laboral");
+                }).start();
+            } catch (Exception exc) {
             }
-        } catch (TransactionException exc) {
-            transactionManager.rollback(txStatus);
-            throw exc;
         }
+
+        return nuevaOfertaEmpleo.getId();
     }
 
     @Override
     public void actualizarOfertaEmpleo(OfertaEmpleo ofertaEmpleo) {
-        DefaultTransactionDefinition  txDef = new DefaultTransactionDefinition();
-        txDef.setTimeout(timeout);
-        TransactionStatus txStatus = transactionManager.getTransaction(txDef);
-        try {
-            repositorioOfertaEmpleo.actualizarOfertaEmpleo(ofertaEmpleo);
-            transactionManager.commit(txStatus);
-        } catch (TransactionException exc) {
-            transactionManager.rollback(txStatus);
-            throw exc;
-        }
-    }    
-    
+        repositorioOfertaEmpleo.actualizarOfertaEmpleo(ofertaEmpleo);
+    }
+
     @Override
     public List<OfertaEmpleo> obtenerOfertasEmpleo() {
         return repositorioOfertaEmpleo.obtenerOfertasEmpleo();
@@ -89,6 +72,21 @@ public class ServicioOfertaEmpleo implements IServicioOfertaEmpleo {
     @Override
     public boolean validarEdicionOfertaEmpleo(int idOfertaEmpleoValidar, String codigoOfertaEmpleoValidar) {
         String codigoOfertaEmpleo = repositorioOfertaEmpleo.obtenerCodigoOfertaEmpleo(idOfertaEmpleoValidar);
-        return codigoOfertaEmpleo!= null && codigoOfertaEmpleo.equalsIgnoreCase(codigoOfertaEmpleoValidar); 
+        return codigoOfertaEmpleo != null && codigoOfertaEmpleo.equalsIgnoreCase(codigoOfertaEmpleoValidar);
+    }
+
+    @Override
+    public void eliminarTelefono(int idTelefono) {
+        repositorioOfertaEmpleo.eliminarTelefono(idTelefono);
+    }
+
+    @Override
+    public void guardarTelefono(int idOfertaEmpleo, Telefono telefono) {
+        repositorioOfertaEmpleo.guardarTelefono(idOfertaEmpleo, telefono);
+    }
+
+    @Override
+    public List<Telefono> obtenerTelefonos(int idOfertaEmpleo) {
+        return repositorioOfertaEmpleo.obtenerTelefonos(idOfertaEmpleo);
     }
 }

@@ -17,6 +17,7 @@
                 password-parameter="password"
                 authentication-success-handler-ref="customAuthenticationSuccessHandler"
                 authentication-failure-url="/index" />
+            <logout logout-url="/logout" logout-success-url="/index" delete-cookies="JSESSIONID" />
 	</http>
         <bean id="userDetailsService" class="co.edu.fnsp.spv.seguridad.UserDetailsService" />
         <bean id="preAuthenticationProvider" class="org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationProvider">

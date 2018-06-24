@@ -11,6 +11,7 @@ import co.edu.fnsp.spv.entidades.Documento;
 import co.edu.fnsp.spv.entidades.NivelFormacion;
 import co.edu.fnsp.spv.entidades.OfertaEmpleo;
 import co.edu.fnsp.spv.entidades.Pais;
+import co.edu.fnsp.spv.entidades.Telefono;
 import co.edu.fnsp.spv.servicios.IServicioMaestro;
 import co.edu.fnsp.spv.servicios.IServicioOfertaEmpleo;
 import co.edu.fnsp.spv.utilidades.Util;
@@ -114,6 +115,7 @@ public class OfertaEmpleoController {
     String crearOfertaEmpleo(@ModelAttribute co.edu.fnsp.spv.entidadesVista.OfertaEmpleo ofertaEmpleo, Model model) throws ParseException, IOException {
         try {
             OfertaEmpleo ofertaEmpleoIngresar = new OfertaEmpleo();
+            ofertaEmpleoIngresar.setId(ofertaEmpleo.getId());
             ofertaEmpleoIngresar.setCargo(ofertaEmpleo.getCargo());
             ofertaEmpleoIngresar.setDescripcion(ofertaEmpleo.getDescripcion());
             ofertaEmpleoIngresar.setEmpresa(ofertaEmpleo.getEmpresa());
@@ -141,12 +143,15 @@ public class OfertaEmpleoController {
                 documento.setTipoContenido(ofertaEmpleo.getDocumento().getContentType());
                 ofertaEmpleoIngresar.setDocumento(documento);
             }
-            ofertaEmpleoIngresar.setTelefonos(ofertaEmpleo.getTelefonos());
+            int id = ofertaEmpleo.getId();
+            if(ofertaEmpleo.getId() == 0) {
+                id = servicioOfertaEmpleo.ingresarOfertaEmpleo(ofertaEmpleoIngresar);
+            } else {
+                servicioOfertaEmpleo.actualizarOfertaEmpleo(ofertaEmpleoIngresar);
+            }
 
-            servicioOfertaEmpleo.ingresarOfertaEmpleo(ofertaEmpleoIngresar);
-
-            return "";
-        } catch (IOException | ParseException exc) {
+            return "{\"id\":" + id + "}";
+        } catch (Exception exc) {
             logger.error(exc);
             throw exc;
         }
@@ -193,15 +198,45 @@ public class OfertaEmpleoController {
                 documento.setTipoContenido(ofertaEmpleo.getDocumento().getContentType());
                 ofertaEmpleoActualizar.setDocumento(documento);
             }
-            ofertaEmpleoActualizar.setTelefonos(ofertaEmpleo.getTelefonos());
-
             servicioOfertaEmpleo.actualizarOfertaEmpleo(ofertaEmpleoActualizar);
 
             return "";
-        } catch (IOException | ParseException exc) {
+        } catch (Exception exc) {
             logger.error(exc);
             throw exc;
         }
+    }
+
+    @RequestMapping(value = {"/telefono"}, method = RequestMethod.POST)
+    public @ResponseBody
+    String guardarTelefono(@ModelAttribute(value = "telefono") Telefono telefono, Model model) throws Exception {
+        String json = "";
+        try {
+            servicioOfertaEmpleo.guardarTelefono(telefono.getIdOfertaEmpleo(), telefono);
+            List<Telefono> telefonos = servicioOfertaEmpleo.obtenerTelefonos(telefono.getIdOfertaEmpleo());
+            json = Util.obtenerTelefonosJSON(telefonos);
+        } catch (Exception exc) {
+            logger.error(exc);
+            throw exc;
+        }
+
+        return json;
+    }
+
+    @RequestMapping(value = "/eliminarTelefono/{idOfertaEmpleo}/{idTelefono}", method = RequestMethod.GET)
+    public @ResponseBody
+    String eliminarTelefono(@PathVariable("idOfertaEmpleo") int idOfertaEmpleo, @PathVariable("idTelefono") int idTelefono, Model model) {
+        String json = "";
+        try {
+            servicioOfertaEmpleo.eliminarTelefono(idTelefono);
+            List<Telefono> telefonos = servicioOfertaEmpleo.obtenerTelefonos(idOfertaEmpleo);
+            json = Util.obtenerTelefonosJSON(telefonos);
+        } catch (Exception exc) {
+            logger.error(exc);
+            throw exc;
+        }
+
+        return json;
     }
     
     @RequestMapping(value = "/{idOfertaEmpleo}", method = RequestMethod.GET)
