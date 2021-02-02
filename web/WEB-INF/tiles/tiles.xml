@@ -16,6 +16,12 @@
         <put-attribute name="title" value="Inicio" />  
         <put-attribute name="body" value="/WEB-INF/jsp/index.jsp" />  
     </definition>  
+    
+    <!--Administracion-->
+    <definition name="administracion/usuarios" extends="base-definition">  
+        <put-attribute name="title" value="Inicio" />  
+        <put-attribute name="body" value="/WEB-INF/jsp/administracion/usuarios.jsp" />  
+    </definition> 
    
     <!-- Ofertas Empleo -->
     <definition name="ofertasEmpleo" extends="base-definition">  
@@ -30,6 +36,16 @@
         <put-attribute name="title" value="Inicio" />  
         <put-attribute name="body" value="/WEB-INF/jsp/ofertasEmpleo/editar.jsp" />  
     </definition>  
+    
+    <!-- Administración Page -->
+    <definition name="administracion/userIndex" extends="base-definition">  
+        <put-attribute name="title" value="userIndex" />  
+        <put-attribute name="body" value="/WEB-INF/jsp/administracion/userIndex.jsp" />  
+    </definition> 
+    <definition name="administracion/usuarios" extends="base-definition">  
+        <put-attribute name="title" value="usuarios" />  
+        <put-attribute name="body" value="/WEB-INF/jsp/administracion/usuarios.jsp" />  
+    </definition> 
        
     <!-- Error Page -->
     <definition name="error" extends="base-definition">  
