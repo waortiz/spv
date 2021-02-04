@@ -27,6 +27,7 @@ public class RepositorioAdministracion implements IRepositorioAdministracion{
     
     private SimpleJdbcCall ingresarUsuario;
     private SimpleJdbcCall obtenerPersonas;
+    private SimpleJdbcCall obtenerPersona;
 
     @Autowired
     public void setDataSource(DataSource dataSource) {
@@ -35,7 +36,7 @@ public class RepositorioAdministracion implements IRepositorioAdministracion{
 
         this.ingresarUsuario = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ingresarUsuario");
         this.obtenerPersonas = new SimpleJdbcCall(jdbcTemplate).withProcedureName("obtenerPersonas").returningResultSet("personas", BeanPropertyRowMapper.newInstance(Persona.class));
-        
+        this.obtenerPersona = new SimpleJdbcCall(jdbcTemplate).withProcedureName("obtenerPersona");
     }
     
     
@@ -58,6 +59,20 @@ public class RepositorioAdministracion implements IRepositorioAdministracion{
         List <Persona> personas = (List<Persona>) resultado.get("personas");
        
         return personas;
+    }
+    
+     @Override
+    public Persona obtenerPersona(String id) {
+        Persona persona = new Persona();
+        MapSqlParameterSource parametros = new MapSqlParameterSource();
+        parametros.addValue("id", id);
+
+        Map resultado = obtenerPersona.execute(parametros);
+        persona.setId(id);
+        persona.setNombres((String)resultado.get("nombres"));
+        persona.setApellidos((String)resultado.get("apellidos"));
+        
+        return persona;
     }
 
    }

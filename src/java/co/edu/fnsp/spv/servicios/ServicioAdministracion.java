@@ -31,6 +31,11 @@ public class ServicioAdministracion implements IServicioAdministracion{
     public List<Persona> obtenerPersonas() {
         return repositorioAdministracion.obtenerPersonas();
     }
+    
+    @Override
+    public Persona obtenerPersona(String id){
+        return repositorioAdministracion.obtenerPersona(id);
+    }
 
     
 }

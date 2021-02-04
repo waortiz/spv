@@ -52,13 +52,13 @@ public class AdministracionController {
     String crearOfertaEmpleo(@ModelAttribute co.edu.fnsp.spv.entidadesVista.User user, Model model) throws ParseException, IOException {
         try {
             co.edu.fnsp.spv.entidades.User userIngresar = new co.edu.fnsp.spv.entidades.User();
-            userIngresar.setPersona(user.getPersona());
-            userIngresar.setPerfil(user.getPerfil());
+            userIngresar.setPersona(servicioAdministracion.obtenerPersona(user.getPersona()).nombreApellido());
+            userIngresar.setPerfil(user.getPersona());
             userIngresar.setClave(user.getClave());
             
             servicioAdministracion.agregarUser(userIngresar);
             
-            return "administracion/userIndex";
+            return "administracion/usuarios";
             
             
         } catch (Exception exc) {

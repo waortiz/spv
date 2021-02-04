@@ -16,4 +16,5 @@ import java.util.List;
 public interface IRepositorioAdministracion {
     User ingresarUser(User user);
     List<Persona> obtenerPersonas();
+    Persona obtenerPersona(String id);
 }

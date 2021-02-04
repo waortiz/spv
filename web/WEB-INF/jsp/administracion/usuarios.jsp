@@ -26,16 +26,11 @@
                        </select>
                    </div>
                 </div>
-                <div class="col-md-6">
-                   <div class="form-group">                               
-                       <label>Perfil</label><a href="#" data-toggle="tooltip" data-placement="right" title = "Debe seleccionar el tipo de perfil" style="margin-left: 5px;"><i class="fa fa-question-circle" aria-hidden="true"></i></a><br>
-                       <select  name="perfil" id="selperfil" class="js-select-basic-single" style="width: 100%;">
-                            <option></option>
-                            <option value="1">Administrador</option>
-                            <option value="2">programador</option>
-                            <option value="3">Analista</option>
-                       </select>
-                   </div>
+                <div class="col-md-6" style="display: none">
+                    <div class="form-group">
+                        <label>Perfil</label><a href="#" data-toggle="tooltip" data-placement="right" style="margin-left: 5px;"><i class="fa fa-question-circle" aria-hidden="true"></i></a>
+                        <input class="form-control form-control-sm"name="perfil" id="us_usuario">                   
+                    </div>
                 </div>
             </div>
                        
@@ -86,6 +81,7 @@
                 
             }
            else{
+               //onsole.log("#us_perfil").val());
                $('#usuario').submit();
             }    
        
