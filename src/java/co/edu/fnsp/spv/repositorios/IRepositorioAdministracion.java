@@ -5,7 +5,9 @@
  */
 package co.edu.fnsp.spv.repositorios;
 
+import co.edu.fnsp.spv.entidades.Persona;
 import co.edu.fnsp.spv.entidades.User;
+import java.util.List;
 
 /**
  *
@@ -13,4 +15,5 @@ import co.edu.fnsp.spv.entidades.User;
  */
 public interface IRepositorioAdministracion {
     User ingresarUser(User user);
+    List<Persona> obtenerPersonas();
 }

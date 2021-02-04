@@ -5,9 +5,10 @@
  */
 package co.edu.fnsp.spv.repositorios;
 
-import co.edu.fnsp.spv.entidades.OfertaEmpleo;
-import co.edu.fnsp.spv.entidades.Telefono;
+import co.edu.fnsp.spv.entidades.Persona;
 import co.edu.fnsp.spv.entidades.User;
+import co.edu.fnsp.spv.utilidades.Util;
+import java.util.List;
 import java.util.Map;
 import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,7 @@ import org.springframework.stereotype.Repository;
 public class RepositorioAdministracion implements IRepositorioAdministracion{
     
     private SimpleJdbcCall ingresarUsuario;
+    private SimpleJdbcCall obtenerPersonas;
 
     @Autowired
     public void setDataSource(DataSource dataSource) {
@@ -32,6 +34,7 @@ public class RepositorioAdministracion implements IRepositorioAdministracion{
         jdbcTemplate.setResultsMapCaseInsensitive(true);
 
         this.ingresarUsuario = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ingresarUsuario");
+        this.obtenerPersonas = new SimpleJdbcCall(jdbcTemplate).withProcedureName("obtenerPersonas").returningResultSet("personas", BeanPropertyRowMapper.newInstance(Persona.class));
         
     }
     
@@ -47,6 +50,14 @@ public class RepositorioAdministracion implements IRepositorioAdministracion{
         
 
         return user;
+    }
+    
+    @Override
+    public List<Persona> obtenerPersonas() {
+        Map resultado = obtenerPersonas.execute();
+        List <Persona> personas = (List<Persona>) resultado.get("personas");
+       
+        return personas;
     }
 
    }

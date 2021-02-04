@@ -2,9 +2,11 @@
 package co.edu.fnsp.spv.controladores;
 
 
+import co.edu.fnsp.spv.entidades.Persona;
 import co.edu.fnsp.spv.servicios.IServicioAdministracion;
 import java.io.IOException;
 import java.text.ParseException;
+import java.util.List;
 import javax.validation.Valid;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -38,6 +40,9 @@ public class AdministracionController {
   
     @RequestMapping(value = "/usuarios", method = RequestMethod.GET)
     public String usuarios(Model model) {
+        List<Persona> personas = servicioAdministracion.obtenerPersonas();
+
+        model.addAttribute("personas", personas);
         return "administracion/usuarios";
     }
     

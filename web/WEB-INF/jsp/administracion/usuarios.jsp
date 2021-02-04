@@ -1,20 +1,28 @@
 
+<%@page import="java.util.List"%>
+<%@page import="co.edu.fnsp.spv.entidades.Persona"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>    
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
 <div class="card" style="padding: 10px">
     <div class="card-header"><h3>Agregar usuario</h3></div>
     <div class="card-body">
         <form method="post" id="usuario">
+            
+            
             <div class="row">
                 <div class="col-md-6">
                    <div class="form-group">
                        <label>Persona</label><a href="#" data-toggle="tooltip" data-placement="right" title = "Debe seleccionar el nombre de la persona" style="margin-left: 5px;"><i class="fa fa-question-circle" aria-hidden="true"></i></a><br>
                        <select  name="persona" id="selpersona" class="js-select-basic-single" style="width: 100%;">
-                       <option></option>
-                       <option value="juan">Juan</option>
-                       <option value="daniel">Daniel</option>
-                       <option value="jeronimo">Jeronimo</option>
+                       <option value = "" ></option>
+                            <c:forEach var="persona" items="${personas}">
+                                
+                                <option value="${persona.getId()}">${persona.nombreApellido()}</option>
+                                
+                            </c:forEach>
+                            
                        </select>
                    </div>
                 </div>
@@ -29,8 +37,8 @@
                        </select>
                    </div>
                 </div>
-
             </div>
+                       
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
@@ -58,11 +66,7 @@
         var i = 0;
         function mostrar() {
            
-           if($("#selpersona").val()===""){
-                alert("Debe indicar la clave");
-                return;
-            }
-            else if($("selperfil").val()===""){
+           if($("#selpersona").val()=== ""){
                 alert("Debe indicar la clave");
                 return;
             }
@@ -82,7 +86,7 @@
                 
             }
            else{
-                $('#usuario').submit();
+               $('#usuario').submit();
             }    
        
         }   

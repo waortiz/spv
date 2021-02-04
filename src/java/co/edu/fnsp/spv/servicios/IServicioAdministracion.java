@@ -5,12 +5,15 @@
  */
 package co.edu.fnsp.spv.servicios;
 
+import co.edu.fnsp.spv.entidades.Persona;
 import co.edu.fnsp.spv.entidades.User;
+import java.util.List;
 
 /**
  *
  * @author jedag
  */
 public interface IServicioAdministracion {
-    int agregarUser(User user);
+    void agregarUser(User user);
+    List<Persona> obtenerPersonas();
 }

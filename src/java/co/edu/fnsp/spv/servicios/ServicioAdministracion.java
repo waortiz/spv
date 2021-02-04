@@ -5,8 +5,10 @@
  */
 package co.edu.fnsp.spv.servicios;
 
+import co.edu.fnsp.spv.entidades.Persona;
 import co.edu.fnsp.spv.entidades.User;
 import co.edu.fnsp.spv.repositorios.IRepositorioAdministracion;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,9 +23,14 @@ public class ServicioAdministracion implements IServicioAdministracion{
     private IRepositorioAdministracion repositorioAdministracion;
     
     @Override
-    public int agregarUser(User user){
-        User nuevoUser = repositorioAdministracion.ingresarUser(user);
-        return 0;
+    public void agregarUser(User user){
+        repositorioAdministracion.ingresarUser(user);
     }
+    
+    @Override
+    public List<Persona> obtenerPersonas() {
+        return repositorioAdministracion.obtenerPersonas();
+    }
+
     
 }
