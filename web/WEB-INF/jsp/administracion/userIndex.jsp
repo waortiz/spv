@@ -4,10 +4,11 @@
 
  <div id="contenido">
     <div class="container">
-        <button style="margin-bottom: 10px;" type="button" class="btn btn-success" style="float:right;" onclick="window.location.href = '${pageContext.request.contextPath}/administracion/usuarios'"><i class="fas fa-plus" ></i> Agregar Usuario</button>
-        
+        <div>
+        <h2 style="display: inline-block;">Usuarios</h2><button type="button" style="margin-top: 10px; float:right;" class="btn btn-success" onclick="window.location.href = '${pageContext.request.contextPath}/administracion/usuarios'"><i class="fas fa-plus" ></i> Agregar Usuario</button>
+        </div>
       <div class="table-responsive"> 
-      <table style="width: 100%; margin: 10px;" id="tbusuario" class="table table-hover tableestilo" >
+      <table style="width: 100%; margin-bottom: 30px;" id="tbusuario" class="table table-hover tableestilo" >
         <thead>
             <tr>
                 <td><input type="text" id="cedinput" class="form-control form-control-sm" placeholder="Buscar cédula"></td>
