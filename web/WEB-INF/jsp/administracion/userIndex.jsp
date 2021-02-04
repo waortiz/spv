@@ -9,39 +9,41 @@
       <div class="table-responsive"> 
       <table style="width: 100%; margin: 10px;" id="tbusuario" class="table table-hover tableestilo" >
         <thead>
-        <tr>
-            <td><input type="text" id="cedinput" class="form-control form-control-sm" placeholder="Buscar cédula"></td>
-            <td><input type="text" id="personinput" class="form-control form-control-sm" placeholder="Buscar persona"></td>
-            <td><input type="text" id="perfinput" class="form-control form-control-sm" placeholder="Buscar perfil"></td>
-            <td><input type="text" id="depinput" class="form-control form-control-sm" placeholder="Buscar dependencia"></td>
-            <td><input type="text" id="esinput" class="form-control form-control-sm" placeholder="Buscar estado"></td>
-        </tr>
-        <tr>                
-          <th>Cédula</th>
-          <th>Persona</th>
-          <th>Perfil</th>
-          <th>Dependencia</th>
-          <th>Estado</th>
-          <th>Opciones</th>
-        </tr>
+            <tr>
+                <td><input type="text" id="cedinput" class="form-control form-control-sm" placeholder="Buscar cédula"></td>
+                <td><input type="text" id="personinput" class="form-control form-control-sm" placeholder="Buscar persona"></td>
+                <td><input type="text" id="perfinput" class="form-control form-control-sm" placeholder="Buscar perfil"></td>
+                <td><input type="text" id="depinput" class="form-control form-control-sm" placeholder="Buscar dependencia"></td>
+                <td><input type="text" id="esinput" class="form-control form-control-sm" placeholder="Buscar estado"></td>
+            </tr>
+            <tr>
+                <th>Tipo de identificación</th>
+                <th>Identificación</th>
+                <th>Persona</th>
+                <th>Estado</th>
+                <th>Opciones</th>
+            </tr>
         </thead>
-       
- <tr>                
-          <td>51231</td>
-          <td>jeronimo </td>
-          <td>administrador</td>
-          <td>tecnologia</td>
-          <td>activo</td>
-          <td style='white-space: nowrap'><button type="button" style="margin-right: 5px;" class="btn btn-success btn-sm btnedit" data-toggle="tooltip" data-placement="left" title = "Editar" ><i class="far fa-list-alt"></i></button><button class="btn btn-success btn-sm btnactivo"  value="activo"><i class="fa fa-unlock" aria-hidden="true"></i></button></td>
-        </tr>
-<tr>                
-          <td>6234</td>
-          <td>daniel </td>
-          <td>analista</td>
-          <td>planeacion</td>
-          <td>inactivo</td>
-          <td style='white-space: nowrap'><button type="button" style="margin-right: 5px;" class="btn btn-success btn-sm btnedit" data-toggle="tooltip" data-placement="left" title = "Editar" ><i class="far fa-list-alt"></i></button><button class="btn btn-success btn-sm btnactivo" value="inactivo" ><i class="fa fa-lock" aria-hidden="true" ></i></button></td>
-        </tr>
+        <c:forEach var="persona" items="${personas}">
+            <tr>                
+              <td>${persona.getTipoId()}</td>
+              <td>${persona.getIdentificacion()}</td>
+              <td>${persona.nombreApellido()}</td>
+              
+              <c:set var="emp" value="${persona.getEmpleado()}"></c:set>
+              
+                <c:choose>
+                  <c:when test="${emp=='true'}">
+                      <td>Activo</td>
+                  </c:when>    
+                  <c:otherwise>
+                      <td>No activo</td>
+                  </c:otherwise>
+              </c:choose>
+              
+              <td style='white-space: nowrap'><button type="button" style="margin-right: 5px;" class="btn btn-success btn-sm btnedit" data-toggle="tooltip" data-placement="left" title = "Editar" ><i class="far fa-list-alt"></i></button><button class="btn btn-success btn-sm btnactivo"  value="activo"><i class="fa fa-unlock" aria-hidden="true"></i></button></td>
+            </tr>
+        </c:forEach>
 
         </table>
         </div>

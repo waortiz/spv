@@ -33,6 +33,10 @@ public class AdministracionController {
     
     @RequestMapping(value = "/userIndex", method = RequestMethod.GET)
     public String userIndex(Model model) {
+        List<Persona> personas = servicioAdministracion.obtenerPersonas();
+
+        model.addAttribute("personas", personas);
+        
         return "administracion/userIndex";
     }
     
