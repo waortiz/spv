@@ -71,7 +71,9 @@ public class RepositorioAdministracion implements IRepositorioAdministracion{
         persona.setId(id);
         persona.setNombres((String)resultado.get("nombres"));
         persona.setApellidos((String)resultado.get("apellidos"));
-        
+        persona.setIdentificacion((String)resultado.get("identificacion"));
+        persona.setTipoId((String)resultado.get("tipoId"));
+        persona.setEmpleado((boolean)resultado.get("empleado"));
         return persona;
     }
 
