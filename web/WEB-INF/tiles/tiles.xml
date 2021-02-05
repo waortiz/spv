@@ -42,9 +42,13 @@
         <put-attribute name="title" value="userIndex" />  
         <put-attribute name="body" value="/WEB-INF/jsp/administracion/userIndex.jsp" />  
     </definition> 
-    <definition name="administracion/usuarios" extends="base-definition">  
-        <put-attribute name="title" value="usuarios" />  
-        <put-attribute name="body" value="/WEB-INF/jsp/administracion/usuarios.jsp" />  
+    <definition name="administracion/crearUsuario" extends="base-definition">  
+        <put-attribute name="title" value="crearUsuarios" />  
+        <put-attribute name="body" value="/WEB-INF/jsp/administracion/crearUsuario.jsp" />  
+    </definition> 
+    <definition name="administracion/editarUsuario" extends="base-definition">  
+        <put-attribute name="title" value="editarUsiario" />  
+        <put-attribute name="body" value="/WEB-INF/jsp/administracion/editarUsuario.jsp" />  
     </definition> 
        
     <!-- Error Page -->

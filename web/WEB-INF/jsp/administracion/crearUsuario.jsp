@@ -12,7 +12,7 @@
             
             
             <div class="row">
-                <div class="col-md-11">
+                <div class="col-md-6">
                    <div class="form-group">
                        <label>Persona</label><a href="#" data-toggle="tooltip" data-placement="right" title = "Debe seleccionar el nombre de la persona" style="margin-left: 5px;"><i class="fa fa-question-circle" aria-hidden="true"></i></a><br>
                        <select  name="persona" id="selpersona" class="js-select-basic-single" style="width: 100%;">
@@ -26,9 +26,9 @@
                        </select>
                    </div>
                 </div>
-                <div class="col-md-1" style="display: none">
+                <div class="col-md-6" >
                     <div class="form-group">
-                        <label>Perfil</label><a href="#" data-toggle="tooltip" data-placement="right" style="margin-left: 5px;"><i class="fa fa-question-circle" aria-hidden="true"></i></a>
+                        <label>Nombre de usuario</label><a href="#" data-toggle="tooltip" data-placement="right" style="margin-left: 5px;"><i class="fa fa-question-circle" aria-hidden="true"></i></a>
                         <input class="form-control form-control-sm"name="perfil" id="us_usuario">                   
                     </div>
                 </div>

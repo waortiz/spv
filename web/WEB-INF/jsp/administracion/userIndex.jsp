@@ -5,7 +5,7 @@
  <div id="contenido">
     <div class="container">
         <div>
-        <h2 style="display: inline-block;">Usuarios</h2><button type="button" style="margin-top: 10px; float:right;" class="btn btn-success" onclick="window.location.href = '${pageContext.request.contextPath}/administracion/usuarios'"><i class="fas fa-plus" ></i> Agregar Usuario</button>
+        <h2 style="display: inline-block;">Usuarios</h2><button type="button" style="margin-top: 10px; float:right;" class="btn btn-success" onclick="window.location.href = '${pageContext.request.contextPath}/administracion/crearUsuario'"><i class="fas fa-plus" ></i> Agregar Usuario</button>
         </div>
       <div class="table-responsive"> 
       <table style="width: 100%; margin-bottom: 30px;" id="tbusuario" class="table table-hover tableestilo" >
@@ -18,31 +18,23 @@
                 <td><input type="text" id="esinput" class="form-control form-control-sm" placeholder="Buscar estado"></td>
             </tr>
             <tr>
-                <th>Tipo de identificación</th>
-                <th>Identificación</th>
-                <th>Persona</th>
-                <th>Estado</th>
+                
+                <th>Nombres</th>
+                <th>Apellidos</th>
+                <th>Correo electronico</th>
                 <th>Opciones</th>
             </tr>
         </thead>
-        <c:forEach var="persona" items="${personas}">
+        <c:forEach var="usuario" items="${usuarios}">
             <tr>                
-              <td>${persona.getTipoId()}</td>
-              <td>${persona.getIdentificacion()}</td>
-              <td>${persona.nombreApellido()}</td>
-              
-              <c:set var="emp" value="${persona.getEmpleado()}"></c:set>
-              
-                <c:choose>
-                  <c:when test="${emp=='true'}">
-                      <td>Activo</td>
-                  </c:when>    
-                  <c:otherwise>
-                      <td>No activo</td>
-                  </c:otherwise>
-              </c:choose>
-              
-              <td style='white-space: nowrap'><button type="button" style="margin-right: 5px;" class="btn btn-success btn-sm btnedit" data-toggle="tooltip" data-placement="left" title = "Editar" ><i class="far fa-list-alt"></i></button><button class="btn btn-success btn-sm btnactivo"  value="activo"><i class="fa fa-unlock" aria-hidden="true"></i></button></td>
+                <td>${usuario.getNombres()}</td>
+                <td>${usuario.getApellidos()}</td>
+                <td>${usuario.getCorreo()}</td>
+                <td>${usuario.getCorreo()}</td>
+                <td>
+                      <button class="btn btn-success btn-sm" onclick="mostrarUsuario(${persona.getId()})">Ver</button>
+                      <button class="btn btn-info btn-sm" style="margin-left: 10px;" onclick="validarEdicionOfertaEmpleo(${ofertaEmpleo.getId()})"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+                </td>
             </tr>
         </c:forEach>
 
@@ -110,3 +102,5 @@
           </div>
       </div> 
     <script src='<c:url value="/resources/js/administracion/usuarios.js" />' ></script>
+    
+    

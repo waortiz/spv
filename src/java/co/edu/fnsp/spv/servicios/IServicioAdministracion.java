@@ -15,6 +15,8 @@ import java.util.List;
  */
 public interface IServicioAdministracion {
     void agregarUser(User user);
+    List<User> obtenerUsuarios();
+    User obtenerUsuario(String id);
     List<Persona> obtenerPersonas();
-    Persona obtenerPersona(String id);
+    Persona obtenerPersona(String id); 
 }

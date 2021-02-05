@@ -26,6 +26,8 @@ import org.springframework.stereotype.Repository;
 public class RepositorioAdministracion implements IRepositorioAdministracion{
     
     private SimpleJdbcCall ingresarUsuario;
+    private SimpleJdbcCall obtenerUsuarios;
+    private SimpleJdbcCall obtenerUsuario;
     private SimpleJdbcCall obtenerPersonas;
     private SimpleJdbcCall obtenerPersona;
 
@@ -35,6 +37,8 @@ public class RepositorioAdministracion implements IRepositorioAdministracion{
         jdbcTemplate.setResultsMapCaseInsensitive(true);
 
         this.ingresarUsuario = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ingresarUsuario");
+        this.obtenerUsuarios = new SimpleJdbcCall(jdbcTemplate).withProcedureName("obtenerUsuarios").returningResultSet("usuarios", BeanPropertyRowMapper.newInstance(User.class));
+        this.obtenerUsuario = new SimpleJdbcCall(jdbcTemplate).withProcedureName("obtenerUsuario");
         this.obtenerPersonas = new SimpleJdbcCall(jdbcTemplate).withProcedureName("obtenerPersonas").returningResultSet("personas", BeanPropertyRowMapper.newInstance(Persona.class));
         this.obtenerPersona = new SimpleJdbcCall(jdbcTemplate).withProcedureName("obtenerPersona");
     }
@@ -54,19 +58,35 @@ public class RepositorioAdministracion implements IRepositorioAdministracion{
     }
     
     @Override
-    public List<Persona> obtenerPersonas() {
-        Map resultado = obtenerPersonas.execute();
-        List <Persona> personas = (List<Persona>) resultado.get("personas");
+    public List<User> obtenerUsuarios() {
+        Map resultado = obtenerUsuarios.execute();
+        List <User> user = (List<User>) resultado.get("usuarios");
        
-        return personas;
+        return user;
     }
     
      @Override
+    public User obtenerUsuario(String nombreUsuario) {
+        User user = new User();
+        MapSqlParameterSource parametros = new MapSqlParameterSource();
+        parametros.addValue("varNombreUsuario", nombreUsuario);
+
+        Map resultado = obtenerUsuario.execute(parametros);
+        user.setPersona(nombreUsuario);
+        user.setNombres((String)resultado.get("varNombres"));
+        user.setApellidos((String)resultado.get("varApellidos"));
+        user.setPersona((String)resultado.get("varIdUsuario"));
+        user.setClave((String)resultado.get("varClave"));
+        user.setCorreo((String)resultado.get("varCorreoElectronico"));
+        return user;
+    }
+    
+    @Override
     public Persona obtenerPersona(String id) {
         Persona persona = new Persona();
         MapSqlParameterSource parametros = new MapSqlParameterSource();
         parametros.addValue("id", id);
-
+        
         Map resultado = obtenerPersona.execute(parametros);
         persona.setId(id);
         persona.setNombres((String)resultado.get("nombres"));
@@ -74,7 +94,14 @@ public class RepositorioAdministracion implements IRepositorioAdministracion{
         persona.setIdentificacion((String)resultado.get("identificacion"));
         persona.setTipoId((String)resultado.get("tipoId"));
         persona.setEmpleado((boolean)resultado.get("empleado"));
+        persona.setCorreo((String)resultado.get("correo"));
         return persona;
     }
-
+    
+    @Override
+    public List<Persona> obtenerPersonas() {
+        Map resultado = obtenerPersonas.execute();
+        List <Persona> personas = (List<Persona>) resultado.get("personas");
+        return personas;
+    }
    }

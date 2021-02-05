@@ -2,6 +2,7 @@
 package co.edu.fnsp.spv.controladores;
 
 
+import co.edu.fnsp.spv.entidades.User;
 import co.edu.fnsp.spv.entidades.Persona;
 import co.edu.fnsp.spv.servicios.IServicioAdministracion;
 import java.io.IOException;
@@ -33,32 +34,39 @@ public class AdministracionController {
     
     @RequestMapping(value = "/userIndex", method = RequestMethod.GET)
     public String userIndex(Model model) {
-        List<Persona> personas = servicioAdministracion.obtenerPersonas();
+        List<User> usuarios = servicioAdministracion.obtenerUsuarios();
 
-        model.addAttribute("personas", personas);
+        model.addAttribute("usuarios", usuarios);
         
         return "administracion/userIndex";
     }
     
     
   
-    @RequestMapping(value = "/usuarios", method = RequestMethod.GET)
+    @RequestMapping(value = "/crearUsuario", method = RequestMethod.GET)
     public String usuarios(Model model) {
         List<Persona> personas = servicioAdministracion.obtenerPersonas();
 
         model.addAttribute("personas", personas);
-        return "administracion/usuarios";
+        return "administracion/crearUsuario";
     }
     
     
-  @RequestMapping(value = "/usuarios", method = RequestMethod.POST)
+  @RequestMapping(value = "/crearUsuario", method = RequestMethod.POST)
     public @ResponseBody
-    String crearOfertaEmpleo(@ModelAttribute co.edu.fnsp.spv.entidadesVista.User user, Model model) throws ParseException, IOException {
+    String crearUsuario(@ModelAttribute co.edu.fnsp.spv.entidadesVista.User user, Model model) throws ParseException, IOException {
         try {
-            co.edu.fnsp.spv.entidades.User userIngresar = new co.edu.fnsp.spv.entidades.User();
-            userIngresar.setPersona(servicioAdministracion.obtenerPersona(user.getPersona()).nombreApellido());
+            User userIngresar = new co.edu.fnsp.spv.entidades.User();
+            userIngresar.setPersona(user.getPerfil());
             userIngresar.setPerfil(user.getPersona());
             userIngresar.setClave(user.getClave());
+            
+            Persona persona = servicioAdministracion.obtenerPersona(user.getPersona());
+            
+            userIngresar.setNombres(persona.getNombres());
+            userIngresar.setApellidos(persona.getApellidos());
+            userIngresar.setCorreo(persona.getCorreo());
+                       
             
             servicioAdministracion.agregarUser(userIngresar);
             
@@ -69,5 +77,14 @@ public class AdministracionController {
             logger.error(exc);
             throw exc;
         }
+    }
+    
+    @RequestMapping(value = "/editarUsuario", method = RequestMethod.GET)
+    public String editarUsuario(Model model) {
+        List<User> usuarios = servicioAdministracion.obtenerUsuarios();
+
+        model.addAttribute("usuarios", usuarios);
+        
+        return "administracion/editarUsuario";
     }
 }

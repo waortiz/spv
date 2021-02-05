@@ -28,6 +28,16 @@ public class ServicioAdministracion implements IServicioAdministracion{
     }
     
     @Override
+    public List<User> obtenerUsuarios() {
+        return repositorioAdministracion.obtenerUsuarios();
+    }
+    
+    @Override
+    public User obtenerUsuario(String id){
+        return repositorioAdministracion.obtenerUsuario(id);
+    }
+    
+    @Override
     public List<Persona> obtenerPersonas() {
         return repositorioAdministracion.obtenerPersonas();
     }
@@ -36,6 +46,4 @@ public class ServicioAdministracion implements IServicioAdministracion{
     public Persona obtenerPersona(String id){
         return repositorioAdministracion.obtenerPersona(id);
     }
-
-    
 }

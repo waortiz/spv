@@ -16,6 +16,7 @@ public class Persona {
     private String apellidos;
     private String tipoId;
     private String identificacion;
+    private String correo;
     private boolean empleado;
 
     public Persona() {
@@ -72,6 +73,14 @@ public class Persona {
 
     public void setEmpleado(boolean emleado) {
         this.empleado = emleado;
+    }
+
+    public String getCorreo() {
+        return correo;
+    }
+
+    public void setCorreo(String correo) {
+        this.correo = correo;
     }
     
 }
