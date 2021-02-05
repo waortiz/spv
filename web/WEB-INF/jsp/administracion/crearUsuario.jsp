@@ -35,13 +35,13 @@
             </div>
                        
             <div class="row">
-                <div class="col-md-9">
+                <div class="col-md-6">
                     <div class="form-group">
                         <label>Contraseña</label><a href="#" data-toggle="tooltip" data-placement="right" title = "debe crear contraseña" style="margin-left: 5px;"><i class="fa fa-question-circle" aria-hidden="true"></i></a>
                         <input class="form-control form-control-sm" type="password" name="clave" id="us_clave">                   
                     </div>
                 </div>
-                <div class="col-md-9">
+                <div class="col-md-6">
                     <div class="form-group">  
                         <label>Confirmar contraseña</label><a href="#" data-toggle="tooltip" data-placement="right" title = "debe escribir la contraseña para confirmar" style="margin-left: 5px;"><i class="fa fa-question-circle" aria-hidden="true"></i></a>
                         <input class="form-control form-control-sm" type="password" name="clavecon" id="us_clavecon">                

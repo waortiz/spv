@@ -11,25 +11,23 @@
       <table style="width: 100%; margin-bottom: 30px;" id="tbusuario" class="table table-hover tableestilo" >
         <thead>
             <tr>
-                <td><input type="text" id="cedinput" class="form-control form-control-sm" placeholder="Buscar cédula"></td>
-                <td><input type="text" id="personinput" class="form-control form-control-sm" placeholder="Buscar persona"></td>
-                <td><input type="text" id="perfinput" class="form-control form-control-sm" placeholder="Buscar perfil"></td>
-                <td><input type="text" id="depinput" class="form-control form-control-sm" placeholder="Buscar dependencia"></td>
-                <td><input type="text" id="esinput" class="form-control form-control-sm" placeholder="Buscar estado"></td>
+                <td><input type="text" id="nombreUs" class="form-control form-control-sm" placeholder="Buscar nombre"></td>
+                <td><input type="text" id="personinput" class="form-control form-control-sm" placeholder="Buscar nombre de usuario"></td>
+                <td><input type="text" id="perfinput" class="form-control form-control-sm" placeholder="Buscar correo electrónico"></td>
+                
             </tr>
             <tr>
                 
-                <th>Nombres</th>
-                <th>Apellidos</th>
+                <th>Nombre</th>
+                <th>Nombre de usuario</th>
                 <th>Correo electronico</th>
                 <th>Opciones</th>
             </tr>
         </thead>
         <c:forEach var="usuario" items="${usuarios}">
             <tr>                
-                <td>${usuario.getNombres()}</td>
-                <td>${usuario.getApellidos()}</td>
-                <td>${usuario.getCorreo()}</td>
+                <td>${usuario.nombreApellido()}</td>
+                <td>${usuario.getPerfil()}</td>
                 <td>${usuario.getCorreo()}</td>
                 <td>
                       <button class="btn btn-success btn-sm" onclick="mostrarUsuario(${persona.getId()})">Ver</button>
