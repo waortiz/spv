@@ -29,9 +29,10 @@
                 <td>${usuario.nombreApellido()}</td>
                 <td>${usuario.getPerfil()}</td>
                 <td>${usuario.getCorreo()}</td>
+                <c:set var="perfil" value="${usuario.getPerfil()}"></c:set>
                 <td>
-                      <button class="btn btn-success btn-sm" onclick="mostrarUsuario(${persona.getId()})">Ver</button>
-                      <button class="btn btn-info btn-sm" style="margin-left: 10px;" onclick="validarEdicionOfertaEmpleo(${ofertaEmpleo.getId()})"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+                      <button class="btn btn-success btn-sm" onclick="mostrarUsuario()">Ver</button>
+                      <button class="btn btn-info btn-sm" style="margin-left: 10px;" onclick="validarEdicionUsuario()"><i class="fa fa-pencil" aria-hidden="true"></i></button>
                 </td>
             </tr>
         </c:forEach>
@@ -41,64 +42,43 @@
     </div>
 </div>
 
-<div class="modal" id="md_edit" tabindex="1">
-          <div class="modal-dialog">
-              <div class="modal-content">
-              <div class="modal-header mhsuccess">
-                  <h4 class="modal-title">Editar usuario</h4>
-                  <button class="close" data-dismiss="modal">&times;</button>
-              </div>
-              <div class="modal-body">
-                  <form>
-                      <div class="row">
-                           <div class="col-md-6">
-                              <div class="form-group">
-                                  <label>Persona</label><a href="#" data-toggle="tooltip" data-placement="right" title = "Debe seleccionar el nombre de la persona" style="margin-left: 5px;"><i class="fa fa-question-circle" aria-hidden="true"></i></a><br>
-                                  <select  name="us_persona2" id="selpersona3"  style="width: 100%;">
-                                  <option></option>
-                                  <option value="juan">Juan</option>
-                                  <option value="daniel">Daniel</option>
-                                  <option value="jeronimo">Jeronimo</option>
-                                  </select>
-                              </div>
-                              </div>
-                              <div class="col-md-6">
-                              <div class="form-group">                               
-                                  <label>Perfil</label><a href="#" data-toggle="tooltip" data-placement="right" title = "Debe seleccionar el tipo de perfil" style="margin-left: 5px;"><i class="fa fa-question-circle" aria-hidden="true"></i></a><br>
-                                  <select  name="rol_nombre2" id="selperfil2"  style="width: 100%;">
-                                  <option></option>
-                                  <option value="administrador">Administrador</option>
-                                  <option value="progra">programador</option>
-                                  <option value="analista">Analista</option>
-                                  </select>
-                              </div>
-                              </div>
-
-                              
+<div class="modal fade" id="validarUsuario" role="dialog">
+    <div class="modal-dialog">
+        <form id="validarUsuario" method="POST">
+            <div class="modal-content">
+                <div class="modal-header mhsuccess">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Validación Oferta Empleo</h4>                                
+                </div>
+                <div class="modal-body">
+                    <div id="alert_placeholder_validacion_oferta_empleo"></div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="codigoOferta">Código de la oferta de empleo</label>
+                                <input type='text' class="form-control" name="codigoOfertaEmpleoValidar" id="codigoOfertaEmpleoValidar" required />
+                                <input type='hidden' class="form-control" name="idOfertaEmpleoValidar" id="idOfertaEmpleoValidar" />
                             </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                              <label>Contraseña</label><a href="#" data-toggle="tooltip" data-placement="right" title = "debe crear contraseña" style="margin-left: 5px;"><i class="fa fa-question-circle" aria-hidden="true"></i></a>
-                              <input class="form-control form-control-sm" type="password" name="us_clave" id="us_clave">                   
-                              </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">  
-                                <label>Confirmar contraseña</label><a href="#" data-toggle="tooltip" data-placement="right" title = "debe escribir la contraseña para confirmar" style="margin-left: 5px;"><i class="fa fa-question-circle" aria-hidden="true"></i></a>
-                                <input class="form-control form-control-sm" type="password" name="us_clavecon" id="us_clavecon">                
-                              </div>
-                                </div>
-                            </div>
-                            </form>
-              </div>
-              <div class="modal-footer">
-                  <button type="submit" class="btn btn-success" data-dismiss="modal">Guardar</button>
-                    <button class="btn btn-default" data-dismiss="modal">Cancelar</button>
-              </div>
-              </div>
-          </div>
-      </div> 
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success">Aceptar</button>
+                    <button type="button" class="btn btn-success" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
     <script src='<c:url value="/resources/js/administracion/usuarios.js" />' ></script>
-    
+    <script>
+        
+    function validarEdicionUsuario() {
+        /*$('#perfilUsuarioValidar').val(perfilUsuario);
+        $('#perfilUsuarioValidar').val(perfilUsuario);
+        
+        console.log(perfilUsuario);
+        $('#validarUsuario').modal('show');*/
+    }
+    </script>
     

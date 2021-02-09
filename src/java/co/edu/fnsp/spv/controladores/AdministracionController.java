@@ -57,8 +57,8 @@ public class AdministracionController {
     String crearUsuario(@ModelAttribute co.edu.fnsp.spv.entidadesVista.User user, Model model) throws ParseException, IOException {
         try {
             User userIngresar = new co.edu.fnsp.spv.entidades.User();
-            userIngresar.setPersona(user.getPerfil());
-            userIngresar.setPerfil(user.getPersona());
+            userIngresar.setId(user.getPersona());
+            userIngresar.setPerfil(user.getPerfil());
             userIngresar.setClave(user.getClave());
             
             Persona persona = servicioAdministracion.obtenerPersona(user.getPersona());

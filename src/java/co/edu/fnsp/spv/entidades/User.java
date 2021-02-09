@@ -10,7 +10,7 @@ package co.edu.fnsp.spv.entidades;
  * @author jedag
  */
 public class User {
-    private String persona;
+    private String id;
     private String perfil;
     private String clave;
     private String nombres;
@@ -20,13 +20,15 @@ public class User {
     public User() {
     }
 
-    public String getPersona() {
-        return persona;
+    public String getId() {
+        return id;
     }
 
-    public void setPersona(String persona) {
-        this.persona = persona;
+    public void setId(String id) {
+        this.id = id;
     }
+
+    
 
     public String getPerfil() {
         return perfil;

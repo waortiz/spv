@@ -47,8 +47,8 @@ public class RepositorioAdministracion implements IRepositorioAdministracion{
     @Override
     public User ingresarUser(User user) {
         MapSqlParameterSource parametros = new MapSqlParameterSource();
-        parametros.addValue("varNombreUsuario", user.getPersona());
-        parametros.addValue("varIdPersona", user.getPerfil());
+        parametros.addValue("varNombreUsuario", user.getPerfil());
+        parametros.addValue("varIdPersona", user.getId());
         parametros.addValue("varClave", user.getClave());
         
         Map resultado = ingresarUsuario.execute(parametros);
@@ -72,10 +72,10 @@ public class RepositorioAdministracion implements IRepositorioAdministracion{
         parametros.addValue("varNombreUsuario", nombreUsuario);
 
         Map resultado = obtenerUsuario.execute(parametros);
-        user.setPersona(nombreUsuario);
+        user.setPerfil(nombreUsuario);
         user.setNombres((String)resultado.get("varNombres"));
         user.setApellidos((String)resultado.get("varApellidos"));
-        user.setPersona((String)resultado.get("varIdUsuario"));
+        user.setId((String)resultado.get("varIdUsuario"));
         user.setClave((String)resultado.get("varClave"));
         user.setCorreo((String)resultado.get("varCorreoElectronico"));
         return user;
