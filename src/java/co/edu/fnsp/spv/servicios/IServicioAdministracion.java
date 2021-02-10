@@ -19,5 +19,5 @@ public interface IServicioAdministracion {
     User obtenerUsuario(String id);
     List<Persona> obtenerPersonas();
     Persona obtenerPersona(String id); 
-    boolean validarEdicionUsuario(String nombreUsuario, String idUsuario);
+    boolean validarEdicionUsuario(String nombreUsuario, int idUsuario);
 }

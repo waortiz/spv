@@ -11,7 +11,7 @@ package co.edu.fnsp.spv.entidadesVista;
  */
 public class ValidarEdicionUsuario {
     private String nombreUsuario;
-    private String idUsuario;
+    private int idUsuario;
 
     public String getNombreUsuario() {
         return nombreUsuario;
@@ -21,11 +21,11 @@ public class ValidarEdicionUsuario {
         this.nombreUsuario = nombreUsuario;
     }
 
-    public String getIdUsuario() {
+    public int getIdUsuario() {
         return idUsuario;
     }
 
-    public void setIdUsuario(String idUsuario) {
+    public void setIdUsuario(int idUsuario) {
         this.idUsuario = idUsuario;
     }
     

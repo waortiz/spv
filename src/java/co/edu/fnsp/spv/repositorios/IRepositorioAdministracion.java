@@ -19,5 +19,5 @@ public interface IRepositorioAdministracion {
     User obtenerUsuario(String nombreUsuario);
     Persona obtenerPersona(String id);
     List<Persona> obtenerPersonas();
-    String obtenerIdUsuario(String nombreUsuario, String idUsuario);
+    int obtenerIdUsuario(String nombreUsuario, int idUsuario);
 }

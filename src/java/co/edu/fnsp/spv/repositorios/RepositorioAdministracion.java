@@ -110,13 +110,14 @@ public class RepositorioAdministracion implements IRepositorioAdministracion{
     }
     
     @Override
-    public String obtenerIdUsuario(String nombreUsuario, String idUsuario) {
+    public int obtenerIdUsuario(String nombreUsuario, int idUsuario) {
         MapSqlParameterSource parametros = new MapSqlParameterSource();
         parametros.addValue("varNombreUsuario", nombreUsuario);
         parametros.addValue("varCodigoEn", idUsuario);
 
         Map resultado = obtenerIdUsuario.execute(parametros);
-        return ((String) resultado.get("varCodigo"));
+        
+        return ((int) resultado.get("varCodigo"));
         
        
     }

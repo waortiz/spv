@@ -83,7 +83,7 @@ public class AdministracionController {
     public @ResponseBody
     String validarUsuario(@ModelAttribute co.edu.fnsp.spv.entidadesVista.ValidarEdicionUsuario userValidar, Model model) throws ParseException, IOException {
         
-        boolean puedeEditar = servicioAdministracion.validarEdicionUsuario(userValidar.getNombreUsuario(), userValidar.getIdUsuario());
+        boolean puedeEditar = servicioAdministracion.validarEdicionUsuario(userValidar.getNombreUsuario(), (int)userValidar.getIdUsuario());
         
         if(!puedeEditar) {
             return "El código ingresado no es válido. No se puede editar la oferta de empleo";
@@ -93,11 +93,7 @@ public class AdministracionController {
     }
     
     
-    
-    
-    
-    
-    @RequestMapping(value = "/editarUsuario", method = RequestMethod.GET)
+    @RequestMapping(value = "/editarUsuario", method = RequestMethod.POST)
     public String editarUsuario(Model model) {
         List<User> usuarios = servicioAdministracion.obtenerUsuarios();
 

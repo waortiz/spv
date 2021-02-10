@@ -48,9 +48,10 @@ public class ServicioAdministracion implements IServicioAdministracion{
     }
     
     @Override
-    public boolean validarEdicionUsuario(String nombreUsuario, String idUsuario) {
-        String codigoOfertaEmpleo = repositorioAdministracion.obtenerIdUsuario(nombreUsuario, idUsuario);
-        return codigoOfertaEmpleo != null && codigoOfertaEmpleo.equalsIgnoreCase(idUsuario);
+    public boolean validarEdicionUsuario(String nombreUsuario, int idUsuario) {
+        int codigoOfertaEmpleo = repositorioAdministracion.obtenerIdUsuario(nombreUsuario, idUsuario);
+        
+        return codigoOfertaEmpleo!=0;
         
     }
 }
