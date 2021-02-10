@@ -46,4 +46,11 @@ public class ServicioAdministracion implements IServicioAdministracion{
     public Persona obtenerPersona(String id){
         return repositorioAdministracion.obtenerPersona(id);
     }
+    
+    @Override
+    public boolean validarEdicionUsuario(String nombreUsuario, String idUsuario) {
+        String codigoOfertaEmpleo = repositorioAdministracion.obtenerIdUsuario(nombreUsuario, idUsuario);
+        return codigoOfertaEmpleo != null && codigoOfertaEmpleo.equalsIgnoreCase(idUsuario);
+        
+    }
 }

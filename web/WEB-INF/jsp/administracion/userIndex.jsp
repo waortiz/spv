@@ -29,10 +29,9 @@
                 <td>${usuario.nombreApellido()}</td>
                 <td>${usuario.getPerfil()}</td>
                 <td>${usuario.getCorreo()}</td>
-                <c:set var="perfil" value="${usuario.getPerfil()}"></c:set>
                 <td>
-                      <button class="btn btn-success btn-sm" onclick="mostrarUsuario()">Ver</button>
-                      <button class="btn btn-info btn-sm" style="margin-left: 10px;" onclick="validarEdicionUsuario()"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+                      <button class="btn btn-success btn-sm" onclick="mostrarUsuario(${usuario.getId()}">Ver</button>
+                      <button class="btn btn-info btn-sm" style="margin-left: 10px;" onclick="validarEdicionUsuario(${usuario.getId()})"><i class="fa fa-pencil" aria-hidden="true"></i></button>
                 </td>
             </tr>
         </c:forEach>
@@ -42,22 +41,22 @@
     </div>
 </div>
 
-<div class="modal fade" id="validarUsuario" role="dialog">
+<div class="modal fade" id="validacionUsuario" role="dialog">
     <div class="modal-dialog">
         <form id="validarUsuario" method="POST">
             <div class="modal-content">
                 <div class="modal-header mhsuccess">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Validación Oferta Empleo</h4>                                
+                    <h4 class="modal-title">Validación Usuario</h4>                                
                 </div>
                 <div class="modal-body">
                     <div id="alert_placeholder_validacion_oferta_empleo"></div>
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label for="codigoOferta">Código de la oferta de empleo</label>
-                                <input type='text' class="form-control" name="codigoOfertaEmpleoValidar" id="codigoOfertaEmpleoValidar" required />
-                                <input type='hidden' class="form-control" name="idOfertaEmpleoValidar" id="idOfertaEmpleoValidar" />
+                                <label for="codigoOferta">Nombre de usuario</label>
+                                <input type='text' class="form-control" name="nombreUsuario" id="nombreUsuarioValidar" required />
+                                <input type='hidden' class="form-control" name="idUsuario" id="idUsuarioValidar" />
                             </div>
                         </div>
                     </div>
@@ -70,15 +69,44 @@
         </form>
     </div>
 </div>
+<form method="POST" id="mostrarEdicionUsuario" action="${pageContext.request.contextPath}/administracion/editarUsuario">
+   <input type='hidden' class="form-control" name="idUsuarioEdicion" id="idUsuarioEdicion" />
+</form>
     <script src='<c:url value="/resources/js/administracion/usuarios.js" />' ></script>
     <script>
+     $(document).ready(function () {
         
-    function validarEdicionUsuario() {
-        /*$('#perfilUsuarioValidar').val(perfilUsuario);
-        $('#perfilUsuarioValidar').val(perfilUsuario);
+        $('#validarUsuario').submit(function (evt) {
+            evt.preventDefault();
+            var formData = new FormData(this);
+            $.ajax({
+                type: "POST",
+                url: "${pageContext.request.contextPath}/administracion/validarEdicion",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    if (response === "") {
+                       $('#validacionUsuario').modal('hide');
+                       $('#nombreUsuarioValidar').val('');
+                       $('#mostrarEdicionUsuario').submit();      
+                    } else {
+                        alert_placeholder_validacion_oferta_empleo.warning(response);
+                    }
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert_placeholder_validacion_oferta_empleo.warning("Error al validar la oferta de empleo.");
+                }});
+
+            $('#md_confirm').modal('hide');
+        });        
+    });   
+    function validarEdicionUsuario(idPerfil) {
+        $('#idUsuarioValidar').val(idPerfil);
+        $('#idUsuarioEdicion').val(idPerfil);
         
-        console.log(perfilUsuario);
-        $('#validarUsuario').modal('show');*/
+        console.log(idPerfil);
+        $('#validacionUsuario').modal('show');
     }
     </script>
     
