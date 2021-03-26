@@ -89,7 +89,8 @@
                     if (response === "") {
                        $('#validacionUsuario').modal('hide');
                        $('#nombreUsuarioValidar').val('');
-                       $('#mostrarEdicionUsuario').submit();      
+                       //$('#mostrarEdicionUsuario').submit(); 
+                       console.log($('#mostrarEdicionUsuario').val());
                     } else {
                         alert_placeholder_validacion_oferta_empleo.warning(response);
                     }
