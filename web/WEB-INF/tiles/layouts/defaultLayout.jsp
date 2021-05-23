@@ -67,6 +67,16 @@
                         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                             <ul class="nav navbar-nav">
                                 <li class="active"><a href="${pageContext.request.contextPath}/index">Inicio <span class="sr-only">(current)</span></a></li>
+                                <li class='dropdown'>
+                                    <a href='#' class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                        Administrar<span class="caret"></span>
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                       
+                                        <li><a href='${pageContext.request.contextPath}/administracion/userIndex'>Usuarios</a></li>
+                                        
+                                    </ul>
+                                </li>
                                 <li class="dropdown">
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Informaci&oacute;n<span class="caret"></span></a>
                                     <ul class="dropdown-menu">
